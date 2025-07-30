@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bulskmjc5epf5"]
+
+[ext_resource type="Script" uid="uid://druaxnosa2rcu" path="res://scripts/Night.gd" id="1_f4wc0"]
+[ext_resource type="Script" uid="uid://d343lf6imhfib" path="res://scripts/Camera.gd" id="3_2olu8"]
+[ext_resource type="PackedScene" uid="uid://co8o8whmf7jla" path="res://scenes/Office.tscn" id="3_ln2um"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_f4wc0")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+position_smoothing_enabled = true
+script = ExtResource("3_2olu8")
+
+[node name="Office" parent="." instance=ExtResource("3_ln2um")]

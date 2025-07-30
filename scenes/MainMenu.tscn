@@ -1,0 +1,73 @@
+[gd_scene load_steps=13 format=3 uid="uid://c0cdkekkale33"]
+
+[ext_resource type="Script" uid="uid://guigqxfr8esn" path="res://scripts/Main_menu.gd" id="1_yqorp"]
+[ext_resource type="Texture2D" uid="uid://b5ynh31oufywg" path="res://assets/background/Фон Меню.png" id="2_0ykhv"]
+[ext_resource type="Texture2D" uid="uid://cncuel48oavlx" path="res://assets/ui/new_game_button.tres" id="3_826wr"]
+[ext_resource type="Texture2D" uid="uid://d4ccj7b1spdy8" path="res://assets/ui/continue_button_normal.tres" id="3_ow34m"]
+[ext_resource type="Texture2D" uid="uid://bb18uk2cs2a2h" path="res://assets/ui/Продолжить вкл.png" id="4_l72w3"]
+[ext_resource type="Texture2D" uid="uid://dnwkdwb4xsn4y" path="res://assets/ui/новая игра вкл.png" id="4_ucygd"]
+[ext_resource type="Texture2D" uid="uid://d3eaacjt4p7mf" path="res://assets/ui/exit_button.tres" id="7_ucygd"]
+[ext_resource type="Texture2D" uid="uid://dd1xkjstd3v6r" path="res://assets/ui/Выход вкл.png" id="8_mipys"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mipys"]
+atlas = ExtResource("4_ucygd")
+region = Rect2(66.3379, 380.839, 384.346, 70.7384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l72w3"]
+atlas = ExtResource("4_l72w3")
+region = Rect2(66.3379, 477.515, 365.482, 63.6646)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_826wr"]
+atlas = ExtResource("4_l72w3")
+region = Rect2(66.3379, 477.515, 365.482, 63.6646)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8a8k8"]
+atlas = ExtResource("8_mipys")
+region = Rect2(63.1342, 1004.08, 241.659, 65.907)
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_yqorp")
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_0ykhv")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.04
+anchor_top = 0.041
+anchor_right = 0.398
+anchor_bottom = 0.096
+offset_left = 11.92
+offset_top = 149.432
+offset_right = -7.49603
+offset_bottom = 367.792
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="NewGameButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("3_826wr")
+texture_pressed = SubResource("AtlasTexture_mipys")
+texture_hover = SubResource("AtlasTexture_mipys")
+stretch_mode = 4
+
+[node name="ContinueButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("3_ow34m")
+texture_pressed = SubResource("AtlasTexture_l72w3")
+texture_hover = SubResource("AtlasTexture_826wr")
+stretch_mode = 4
+
+[node name="ExitButton" type="TextureButton" parent="Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("7_ucygd")
+texture_pressed = SubResource("AtlasTexture_8a8k8")
+texture_hover = SubResource("AtlasTexture_8a8k8")
+stretch_mode = 4
