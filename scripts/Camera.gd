@@ -1,11 +1,11 @@
 extends Camera2D
 
-@export var BASE_CAMERA_SPEED := 600
+@export var BASE_CAMERA_SPEED = 650
 @export var BASE_EDGE_MARGIN := 250
+@onready var officeBackgroundSprite: Sprite2D = get_parent().get_node("Office/OfficeBackground")
+
 var camera_speed: int
 var edge_margin: int  # Зона, где камера начинает поворачиваться
-
-@onready var office_bg: TextureRect = get_parent().get_node("Office/OfficeBackground")
 
 @onready var viewport = get_viewport()
 # Всегда использовать именно это, т. к. get_viewport().size возвращает размеры из настроек, а код ниже учитывет масштаб
@@ -17,44 +17,33 @@ var left_limit_x: int
 var right_limit_x: int
 
 func _ready():
-	#Input.mouse_mode = Input.MOUSE_MODE_CONFINED
-	_calculate_parameters()
 	viewport.size_changed.connect(_on_viewport_size_changed)
+	if officeBackgroundSprite:
+		# Слишком длинно, вызовы функций дублируют друг дргуа .get_width(), например
+		# TODO Вынести в переменные
+		position.x = (officeBackgroundSprite.texture.get_width() - viewport_rect.size.x) / 2
 	
 func _calculate_parameters():
 	camera_speed = BASE_CAMERA_SPEED * (viewport_size.x / viewport_init_size.x)
 	edge_margin = BASE_EDGE_MARGIN * (viewport_size.x / viewport_init_size.x)
 	
-	var left_edge = office_bg.global_position.x
-	var _right_edge = office_bg.global_position.x - office_bg.size.x * office_bg.scale.x / 2
+	var left_edge = officeBackgroundSprite.global_position.x
+	var _right_edge = officeBackgroundSprite.global_position.x - officeBackgroundSprite.size.x * officeBackgroundSprite.scale.x / 2
 	
 	left_limit_x = left_edge
-	right_limit_x = get_parent().global_position.x - office_bg.global_position.x
+	right_limit_x = get_parent().global_position.x - officeBackgroundSprite.global_position.x
 	print("Camera speed calculated: ", camera_speed, " and edge_margin: ", edge_margin)
 	print("Camera limits calculated: ", left_limit_x, " to ", right_limit_x)
 
 func _process(delta):
-	_calculate_parameters()
-	var mouse_pos = viewport.get_mouse_position()
-	
-	var move_dir = 0
-	
-	# Проверка есть ли курсор внутри viewport
-	if not viewport_rect.has_point(mouse_pos): return
-	
-	if (mouse_pos.x < edge_margin):
-		move_dir = -1
-	elif (mouse_pos.x > viewport_size.x - edge_margin):
-		move_dir = 1
-	
-	if move_dir != 0:
-		global_position.x += move_dir * camera_speed * delta
-		
-	global_position.x = clamp(global_position.x, left_limit_x, right_limit_x)
+	var mouse_pos_x = get_local_mouse_position().x
+	var direction = 0
+	if mouse_pos_x < BASE_EDGE_MARGIN:
+		direction = -1
+	elif mouse_pos_x > viewport_rect.size.x - BASE_EDGE_MARGIN:
+		direction = 1
+
+	position.x = clamp(position.x + direction * BASE_CAMERA_SPEED * delta, 0, officeBackgroundSprite.texture.get_width() - viewport_rect.size.x) 
 	
 func _on_viewport_size_changed():
-	viewport = get_viewport()
-	viewport_rect = viewport.get_visible_rect()
-	viewport_size = viewport_rect.size
-	_calculate_parameters()
-	global_position.x = clamp(global_position.x, left_limit_x, right_limit_x)
+	pass

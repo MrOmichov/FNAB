@@ -25,7 +25,7 @@ region = Rect2(66.3379, 477.515, 365.482, 63.6646)
 atlas = ExtResource("8_mipys")
 region = Rect2(63.1342, 1004.08, 241.659, 65.907)
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="MainMenu" type="CanvasLayer"]
 script = ExtResource("1_yqorp")
 
 [node name="Background" type="TextureRect" parent="."]
@@ -35,7 +35,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_0ykhv")
-expand_mode = 3
+expand_mode = 5
 stretch_mode = 6
 
 [node name="Buttons" type="VBoxContainer" parent="."]
@@ -44,11 +44,13 @@ anchor_left = 0.04
 anchor_top = 0.041
 anchor_right = 0.398
 anchor_bottom = 0.096
-offset_left = 11.92
-offset_top = 149.432
-offset_right = -7.49603
-offset_bottom = 367.792
-theme_override_constants/separation = 5
+offset_left = 12.2
+offset_top = 216.72
+offset_right = -274.16
+offset_bottom = 601.32
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 7
 alignment = 1
 
 [node name="NewGameButton" type="TextureButton" parent="Buttons"]

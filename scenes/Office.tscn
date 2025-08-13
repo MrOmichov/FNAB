@@ -1,16 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://co8o8whmf7jla"]
+[gd_scene load_steps=3 format=3 uid="uid://co8o8whmf7jla"]
 
 [ext_resource type="Texture2D" uid="uid://gcl16av1tres" path="res://assets/background/офис.png" id="1_3e7dm"]
 
-[node name="Office" type="CanvasLayer"]
-follow_viewport_enabled = true
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hulg7"]
 
-[node name="OfficeBackground" type="TextureRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Office" type="Node2D"]
+
+[node name="OfficeBackground" type="Sprite2D" parent="."]
 texture = ExtResource("1_3e7dm")
-expand_mode = 3
-stretch_mode = 6
+centered = false
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_hulg7")
