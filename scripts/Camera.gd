@@ -36,14 +36,19 @@ func _calculate_parameters():
 	print("Camera limits calculated: ", left_limit_x, " to ", right_limit_x)
 
 func _process(delta):
-	var mouse_pos_x = get_local_mouse_position().x
+	var night = get_parent()
+	if not night.is_player_input_allowed():
+		return
+	var visible_size := get_viewport().get_visible_rect().size
+	var mouse_pos_x := get_viewport().get_mouse_position().x
 	var direction = 0
-	if mouse_pos_x < BASE_EDGE_MARGIN:
+	if mouse_pos_x < minf(BASE_EDGE_MARGIN, visible_size.x * 0.25):
 		direction = -1
-	elif mouse_pos_x > viewport_rect.size.x - BASE_EDGE_MARGIN:
+	elif mouse_pos_x > visible_size.x - minf(BASE_EDGE_MARGIN, visible_size.x * 0.25):
 		direction = 1
 
-	position.x = clamp(position.x + direction * BASE_CAMERA_SPEED * delta, 0, officeBackgroundSprite.texture.get_width() - viewport_rect.size.x) 
+	var background_width := officeBackgroundSprite.texture.get_width() * officeBackgroundSprite.scale.x
+	position.x = clampf(position.x + direction * BASE_CAMERA_SPEED * delta, 0.0, maxf(0.0, background_width - visible_size.x))
 	
 func _on_viewport_size_changed():
 	pass

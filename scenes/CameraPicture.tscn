@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=3 uid="uid://qk4iekd1ucb1"]
+
+[ext_resource type="Texture2D" uid="uid://cp5md6x36y788" path="res://assets/Ремейк игры/камера/помехи фон/1.png" id="2_2u5g0"]
+[ext_resource type="Script" uid="uid://b2c57gnvjgmpy" path="res://scripts/camera_picture.gd" id="2_p4ohj"]
+[ext_resource type="Texture2D" uid="uid://cmacfuh2dw102" path="res://assets/Ремейк игры/камера/помехи фон/2.png" id="3_jbmr6"]
+[ext_resource type="Texture2D" uid="uid://0yr03jv4k1cy" path="res://assets/Ремейк игры/камера/помехи фон/3.png" id="4_gd43k"]
+[ext_resource type="Texture2D" uid="uid://bo023wsisy4v7" path="res://assets/Ремейк игры/камера/помехи фон/4.png" id="5_tdn07"]
+[ext_resource type="Texture2D" uid="uid://ce7s1darubb6a" path="res://assets/Ремейк игры/камера/помехи фон/5.png" id="6_ur14i"]
+[ext_resource type="Texture2D" uid="uid://ttfq4s8hvkep" path="res://assets/Ремейк игры/камера/помехи фон/6.png" id="7_qbsva"]
+[ext_resource type="Texture2D" uid="uid://d16efywrmsm0j" path="res://assets/Ремейк игры/камера/помехи фон/7.png" id="8_k0vtd"]
+[ext_resource type="Texture2D" uid="uid://cfyswhuyl1ekv" path="res://assets/Ремейк игры/камера/помехи фон/8.png" id="9_bkjk4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ksglv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2u5g0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jbmr6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gd43k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tdn07")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ur14i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_qbsva")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_k0vtd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_bkjk4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 24.0
+}]
+
+[node name="picture" type="Sprite2D"]
+visible = false
+visibility_layer = 2
+centered = false
+script = ExtResource("2_p4ohj")
+
+[node name="layer1" type="Sprite2D" parent="."]
+centered = false
+
+[node name="layer2" type="Sprite2D" parent="."]
+centered = false
+
+[node name="layer3" type="Sprite2D" parent="."]
+centered = false
+
+[node name="layer4" type="Sprite2D" parent="."]
+centered = false
+
+[node name="layer5" type="Sprite2D" parent="."]
+centered = false
+
+[node name="camera_noise" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_ksglv")
+centered = false

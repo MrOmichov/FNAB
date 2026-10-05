@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://divmef5q3fond"
+path="res://.godot/imported/скример берри.wav-8c1fbb7c2657960bdc2c5f03426ab385.sample"
+
+[deps]
+
+source_file="res://assets/Ремейк игры/звуки/скримеры/скример берри.wav"
+dest_files=["res://.godot/imported/скример берри.wav-8c1fbb7c2657960bdc2c5f03426ab385.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

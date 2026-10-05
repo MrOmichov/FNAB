@@ -1,0 +1,286 @@
+[gd_scene load_steps=46 format=3 uid="uid://ncki8ekh6spu"]
+
+[ext_resource type="Script" uid="uid://bc5tlolv82qcb" path="res://scripts/camera_system.gd" id="1_wvejg"]
+[ext_resource type="Texture2D" uid="uid://dk6gxprnoeb5k" path="res://assets/Ремейк игры/камера/планшет/пульт/0.png" id="2_k8582"]
+[ext_resource type="Texture2D" uid="uid://ch3k08npjyvp4" path="res://assets/Ремейк игры/камера/планшет/планшет/8.png" id="3_3gt48"]
+[ext_resource type="Texture2D" uid="uid://30pm3wadnamj" path="res://assets/Ремейк игры/камера/планшет/пульт/1.png" id="3_as60l"]
+[ext_resource type="Texture2D" uid="uid://dwx14k8gtb4d1" path="res://assets/Ремейк игры/камера/планшет/планшет/7.png" id="4_3t73v"]
+[ext_resource type="Texture2D" uid="uid://bfabhty6fh1r" path="res://assets/Ремейк игры/камера/планшет/пульт/2.png" id="4_himql"]
+[ext_resource type="Texture2D" uid="uid://bwurkbrj61eh2" path="res://assets/Ремейк игры/камера/планшет/пульт/3.png" id="5_xc5wi"]
+[ext_resource type="Texture2D" uid="uid://bqwrop8y4cib6" path="res://assets/Ремейк игры/камера/планшет/планшет/6.png" id="5_yhwok"]
+[ext_resource type="Texture2D" uid="uid://bvdx2lhbdw6hh" path="res://assets/Ремейк игры/камера/планшет/пульт/4.png" id="6_4s5ah"]
+[ext_resource type="Texture2D" uid="uid://dk0twhdlmqnmd" path="res://assets/Ремейк игры/камера/планшет/планшет/5.png" id="6_p4fxp"]
+[ext_resource type="Texture2D" uid="uid://dvcgleoal8b7h" path="res://assets/Ремейк игры/камера/планшет/пульт/5.png" id="7_8o48h"]
+[ext_resource type="Texture2D" uid="uid://d3hmxiq5mrqwe" path="res://assets/Ремейк игры/камера/планшет/планшет/4.png" id="7_usyeu"]
+[ext_resource type="Texture2D" uid="uid://b5xv2b0nsm12p" path="res://assets/Ремейк игры/камера/планшет/планшет/3.png" id="8_u1g1r"]
+[ext_resource type="Texture2D" uid="uid://dv0ns31bjkruc" path="res://assets/Ремейк игры/камера/планшет/пульт/6.png" id="8_x13nw"]
+[ext_resource type="Texture2D" uid="uid://0d3uxt2h4asd" path="res://assets/Ремейк игры/камера/планшет/пульт/7.png" id="9_a2b80"]
+[ext_resource type="Texture2D" uid="uid://dwt6dfi0s31an" path="res://assets/Ремейк игры/камера/планшет/планшет/2.png" id="9_u4pc2"]
+[ext_resource type="Texture2D" uid="uid://cpick8l76v1ar" path="res://assets/Ремейк игры/камера/планшет/пульт/8.png" id="10_3i660"]
+[ext_resource type="Texture2D" uid="uid://dq1oxw3gq1cwf" path="res://assets/Ремейк игры/камера/планшет/планшет/1.png" id="10_rke2k"]
+[ext_resource type="Texture2D" uid="uid://dn1n2g0borh72" path="res://assets/Ремейк игры/камера/планшет/планшет/0 включенное состояние.png" id="11_br1g7"]
+[ext_resource type="Texture2D" uid="uid://baum4i204x8pb" path="res://assets/Ремейк игры/камера/планшет/пульт/9.png" id="11_of2rh"]
+[ext_resource type="Texture2D" uid="uid://b40xx0fb3fg3f" path="res://assets/Ремейк игры/камера/планшет/кнопка открытия.png" id="12_k8582"]
+[ext_resource type="Texture2D" uid="uid://b81g1t3cgfdhs" path="res://assets/Ремейк игры/камера/планшет/кнопка с пультом.png" id="13_k8582"]
+[ext_resource type="Texture2D" uid="uid://dudjwpydi8yfp" path="res://assets/Ремейк игры/камера/планшет/батарейка/100.png" id="13_yhwok"]
+[ext_resource type="PackedScene" uid="uid://qk4iekd1ucb1" path="res://scenes/CameraPicture.tscn" id="14_himql"]
+[ext_resource type="Texture2D" uid="uid://d4ey26r0i1pv2" path="res://assets/Ремейк игры/камера/кнопки/кнопки переключения камер/кам.1.png" id="27_t3vg8"]
+[ext_resource type="Texture2D" uid="uid://ba8xbh2kywtkm" path="res://assets/Ремейк игры/камера/кнопки/кнопки переключения камер/кам.1. вкл.png" id="28_xcxd5"]
+[ext_resource type="Texture2D" uid="uid://crhdwiiomdtjp" path="res://assets/Ремейк игры/камера/кнопки/кнопки переключения камер/кам.2.png" id="29_himql"]
+[ext_resource type="Texture2D" uid="uid://bbkblb6qh2pmu" path="res://assets/Ремейк игры/камера/кнопки/кнопки переключения камер/кам.2. вкл.png" id="30_xc5wi"]
+[ext_resource type="Texture2D" uid="uid://vea6rasaknnk" path="res://assets/Ремейк игры/камера/кнопки/кнопки переключения камер/кам.3.png" id="31_4s5ah"]
+[ext_resource type="Texture2D" uid="uid://da25nvrthavrh" path="res://assets/Ремейк игры/камера/кнопки/кнопки переключения камер/кам.3. вкл.png" id="32_8o48h"]
+[ext_resource type="Texture2D" uid="uid://daku5wmdwp3w6" path="res://assets/Ремейк игры/камера/кнопки/кнопки переключения камер/кам.4.png" id="33_x13nw"]
+[ext_resource type="Texture2D" uid="uid://dh4pqou8ee55q" path="res://assets/Ремейк игры/камера/кнопки/кнопки переключения камер/кам.4. вкл.png" id="34_a2b80"]
+[ext_resource type="Texture2D" uid="uid://bydyksxkeo66g" path="res://assets/Ремейк игры/камера/кнопки/кнопки переключения камер/кам.5.png" id="35_3i660"]
+[ext_resource type="Texture2D" uid="uid://btn7kw6xo4sgk" path="res://assets/Ремейк игры/камера/кнопки/кнопки переключения камер/кам.5. вкл.png" id="36_of2rh"]
+[ext_resource type="Texture2D" uid="uid://by4r56u1qnl2p" path="res://assets/Ремейк игры/камера/кнопки/кнопки переключения камер/кам.6.png" id="37_g31vs"]
+[ext_resource type="Texture2D" uid="uid://dv7sy41wrr8oc" path="res://assets/Ремейк игры/камера/кнопки/кнопки переключения камер/кам.6. вкл.png" id="38_10m7j"]
+[ext_resource type="Texture2D" uid="uid://c0enxtvooni7s" path="res://assets/Ремейк игры/камера/планшет/планшет/стекло.png" id="38_k8582"]
+[ext_resource type="Texture2D" uid="uid://spyxpumwtrsq" path="res://assets/Ремейк игры/камера/кнопки/кнопки переключения камер/кам.7.png" id="39_8bskn"]
+[ext_resource type="Texture2D" uid="uid://bttjnlyao3l52" path="res://assets/Ремейк игры/камера/кнопки/кнопки переключения камер/кам.7. вкл.png" id="40_wyeh3"]
+[ext_resource type="Texture2D" uid="uid://cn6q5df0tw5a2" path="res://assets/Ремейк игры/камера/планшет/расход/1.png" id="43_xc5wi"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g31vs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_k8582")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_as60l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_himql")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_xc5wi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_4s5ah")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_8o48h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_x13nw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_a2b80")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_3i660")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_of2rh")
+}],
+"loop": false,
+"name": &"default",
+"speed": 36.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_3gt48"]
+script/source = "extends Area2D
+
+
+func _on_camera_pad_animation_finished() -> void:
+	pass # Replace with function body.
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rb1pm"]
+size = Vector2(811, 104)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p4fxp"]
+size = Vector2(208, 251)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tgna3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_3gt48")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3t73v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_yhwok")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_p4fxp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_usyeu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_u1g1r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_u4pc2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_rke2k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_br1g7")
+}],
+"loop": false,
+"name": &"default",
+"speed": 32.0
+}]
+
+[node name="CameraSystem" type="CanvasLayer"]
+script = ExtResource("1_wvejg")
+
+[node name="remote_controller" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_g31vs")
+centered = false
+
+[node name="open_button" type="Sprite2D" parent="."]
+position = Vector2(960, 1039)
+texture = ExtResource("12_k8582")
+region_enabled = true
+region_rect = Rect2(552, 1000, 816, 80)
+
+[node name="Area2D" type="Area2D" parent="open_button"]
+script = SubResource("GDScript_3gt48")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="open_button/Area2D"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_rb1pm")
+
+[node name="remote_controller_button" type="Sprite2D" parent="."]
+position = Vector2(123, 953)
+texture = ExtResource("13_k8582")
+region_enabled = true
+region_rect = Rect2(40, 840, 168, 232)
+
+[node name="Area2D" type="Area2D" parent="remote_controller_button"]
+script = SubResource("GDScript_3gt48")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="remote_controller_button/Area2D"]
+position = Vector2(-29, 19.5)
+shape = SubResource("RectangleShape2D_p4fxp")
+
+[node name="picture" parent="." instance=ExtResource("14_himql")]
+position = Vector2(160, 128)
+scale = Vector2(0.8, 0.8)
+
+[node name="camera_pad" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_tgna3")
+centered = false
+
+[node name="camera_buttons" type="Node2D" parent="camera_pad"]
+visible = false
+
+[node name="cam1" type="TextureButton" parent="camera_pad/camera_buttons"]
+offset_left = 1366.0
+offset_top = 603.0
+offset_right = 1416.0
+offset_bottom = 628.0
+texture_normal = ExtResource("27_t3vg8")
+texture_focused = ExtResource("28_xcxd5")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="cam2" type="TextureButton" parent="camera_pad/camera_buttons"]
+offset_left = 1447.0
+offset_top = 603.0
+offset_right = 1497.0
+offset_bottom = 628.0
+texture_normal = ExtResource("29_himql")
+texture_focused = ExtResource("30_xc5wi")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="cam3" type="TextureButton" parent="camera_pad/camera_buttons"]
+offset_left = 1396.0
+offset_top = 678.0
+offset_right = 1456.0
+offset_bottom = 708.0
+texture_normal = ExtResource("31_4s5ah")
+texture_focused = ExtResource("32_8o48h")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="cam4" type="TextureButton" parent="camera_pad/camera_buttons"]
+offset_left = 1463.0
+offset_top = 747.0
+offset_right = 1523.0
+offset_bottom = 777.0
+texture_normal = ExtResource("33_x13nw")
+texture_focused = ExtResource("34_a2b80")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="cam5" type="TextureButton" parent="camera_pad/camera_buttons"]
+offset_left = 1483.0
+offset_top = 906.0
+offset_right = 1543.0
+offset_bottom = 936.0
+texture_normal = ExtResource("35_3i660")
+texture_focused = ExtResource("36_of2rh")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="cam6" type="TextureButton" parent="camera_pad/camera_buttons"]
+offset_left = 1420.0
+offset_top = 888.0
+offset_right = 1470.0
+offset_bottom = 913.0
+texture_normal = ExtResource("37_g31vs")
+texture_focused = ExtResource("38_10m7j")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="cam7" type="TextureButton" parent="camera_pad/camera_buttons"]
+offset_left = 1356.0
+offset_top = 888.0
+offset_right = 1406.0
+offset_bottom = 913.0
+texture_normal = ExtResource("39_8bskn")
+texture_focused = ExtResource("40_wyeh3")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="camera_screen" type="Sprite2D" parent="camera_pad"]
+visible = false
+texture = ExtResource("38_k8582")
+centered = false
+region_rect = Rect2(0, 0, 1920, 1080)
+
+[node name="battery" type="Sprite2D" parent="camera_pad"]
+visible = false
+texture = ExtResource("13_yhwok")
+centered = false
+
+[node name="time" type="Label" parent="camera_pad"]
+visible = false
+offset_left = 170.0
+offset_top = 127.0
+offset_right = 272.0
+offset_bottom = 182.0
+theme_override_colors/font_color = Color(0.285605, 0.599295, 0.184709, 1)
+theme_override_colors/font_shadow_color = Color(0.355314, 0.355314, 0.355314, 1)
+theme_override_colors/font_outline_color = Color(0.332881, 0.332881, 0.332881, 1)
+theme_override_font_sizes/font_size = 40
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="energy_consumption" type="Sprite2D" parent="camera_pad"]
+visible = false
+texture = ExtResource("43_xc5wi")
+centered = false
+
+[connection signal="animation_finished" from="remote_controller" to="." method="_on_remote_controller_animation_finished"]
+[connection signal="mouse_entered" from="open_button/Area2D" to="." method="_on_open_button_mouse_entered"]
+[connection signal="mouse_entered" from="remote_controller_button/Area2D" to="." method="_on_remote_controller_button_mouse_entered"]
+[connection signal="animation_finished" from="camera_pad" to="." method="_on_camera_pad_animation_finished"]
+[connection signal="pressed" from="camera_pad/camera_buttons/cam1" to="." method="select_camera_1"]
+[connection signal="pressed" from="camera_pad/camera_buttons/cam2" to="." method="select_camera_2"]
+[connection signal="pressed" from="camera_pad/camera_buttons/cam3" to="." method="select_camera_3"]
+[connection signal="pressed" from="camera_pad/camera_buttons/cam4" to="." method="select_camera_4"]
+[connection signal="pressed" from="camera_pad/camera_buttons/cam5" to="." method="select_camera_5"]
+[connection signal="pressed" from="camera_pad/camera_buttons/cam6" to="." method="select_camera_6"]
+[connection signal="pressed" from="camera_pad/camera_buttons/cam7" to="." method="select_camera_7"]

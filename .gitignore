@@ -1,3 +1,20 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Exported builds and local validation/user data.
+/dist/
+/.appdata/
+export_credentials.cfg
+
+# Editor backups and temporary files (including Krita backups).
+*~
+*.bak
+*.tmp
+
+# Operating-system metadata.
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Keep source assets, Godot *.import files and script *.uid files in Git.

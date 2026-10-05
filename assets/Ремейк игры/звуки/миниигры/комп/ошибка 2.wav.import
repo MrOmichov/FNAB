@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://50j5vcr3q45a"
+path="res://.godot/imported/ошибка 2.wav-d1592c73c68a1513e44a71e999f096bb.sample"
+
+[deps]
+
+source_file="res://assets/Ремейк игры/звуки/миниигры/комп/ошибка 2.wav"
+dest_files=["res://.godot/imported/ошибка 2.wav-d1592c73c68a1513e44a71e999f096bb.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

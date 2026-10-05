@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://q5k2obv3emon"
+path="res://.godot/imported/уход вправо.wav-3c76bb57ad6cf99ff0b9990c3f3802a3.sample"
+
+[deps]
+
+source_file="res://assets/Ремейк игры/звуки/роботы у офиса/блеки/уход вправо.wav"
+dest_files=["res://.godot/imported/уход вправо.wav-3c76bb57ad6cf99ff0b9990c3f3802a3.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

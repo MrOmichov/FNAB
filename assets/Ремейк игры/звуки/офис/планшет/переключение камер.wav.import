@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bv075kqrjwcqj"
+path="res://.godot/imported/переключение камер.wav-11243c1a3b87bd84514c25a50297a6f2.sample"
+
+[deps]
+
+source_file="res://assets/Ремейк игры/звуки/офис/планшет/переключение камер.wav"
+dest_files=["res://.godot/imported/переключение камер.wav-11243c1a3b87bd84514c25a50297a6f2.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

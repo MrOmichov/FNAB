@@ -1,14 +1,220 @@
-[gd_scene load_steps=4 format=3 uid="uid://bulskmjc5epf5"]
+[gd_scene load_steps=43 format=3 uid="uid://bulskmjc5epf5"]
 
 [ext_resource type="Script" uid="uid://druaxnosa2rcu" path="res://scripts/Night.gd" id="1_f4wc0"]
+[ext_resource type="Texture2D" uid="uid://ceferpah4upx7" path="res://assets/Ремейк игры/катсцены/конец ночи/1.png" id="2_gee24"]
 [ext_resource type="Script" uid="uid://d343lf6imhfib" path="res://scripts/Camera.gd" id="3_2olu8"]
+[ext_resource type="Texture2D" uid="uid://bup2elql6t3j4" path="res://assets/Ремейк игры/катсцены/конец ночи/2.png" id="3_611y7"]
 [ext_resource type="PackedScene" uid="uid://co8o8whmf7jla" path="res://scenes/Office.tscn" id="3_ln2um"]
+[ext_resource type="Script" uid="uid://bgl344uj4kojt" path="res://scripts/dog_ai.gd" id="4_ccsv5"]
+[ext_resource type="Script" uid="uid://du0pjqcwhadcq" path="res://scripts/old_creeper_ai.gd" id="4_jws2p"]
+[ext_resource type="Texture2D" uid="uid://ko8pp2obayul" path="res://assets/Ремейк игры/катсцены/конец ночи/3.png" id="4_kr7t1"]
+[ext_resource type="PackedScene" uid="uid://ncki8ekh6spu" path="res://scenes/CameraSystem.tscn" id="4_ln2um"]
+[ext_resource type="Texture2D" uid="uid://qn5bhi255n3m" path="res://assets/Ремейк игры/катсцены/конец ночи/4.png" id="5_upab3"]
+[ext_resource type="Texture2D" uid="uid://dhcj0f5yukr1b" path="res://assets/Ремейк игры/катсцены/конец ночи/5.png" id="6_dk0dp"]
+[ext_resource type="Texture2D" uid="uid://5gecdim6q6xy" path="res://assets/Ремейк игры/катсцены/конец ночи/6.png" id="7_b2cjx"]
+[ext_resource type="Texture2D" uid="uid://cunx508670be0" path="res://assets/Ремейк игры/катсцены/конец ночи/7.png" id="8_okpa3"]
+[ext_resource type="Texture2D" uid="uid://fstgevc2gqnp" path="res://assets/Ремейк игры/катсцены/конец ночи/8.png" id="9_p3wtm"]
+[ext_resource type="Texture2D" uid="uid://barhtkx1u5hnb" path="res://assets/Ремейк игры/катсцены/конец ночи/9.png" id="10_0d7w5"]
+[ext_resource type="Texture2D" uid="uid://cnjq5xnocbv0i" path="res://assets/Ремейк игры/катсцены/конец ночи/10.png" id="11_08eyn"]
+[ext_resource type="Texture2D" uid="uid://d0i3wwnoh351y" path="res://assets/Ремейк игры/катсцены/конец ночи/11.png" id="12_ccc2j"]
+[ext_resource type="Texture2D" uid="uid://dxovud0rv3eac" path="res://assets/Ремейк игры/катсцены/конец ночи/12.png" id="13_1c574"]
+[ext_resource type="Texture2D" uid="uid://chi5jqkmtb5dd" path="res://assets/Ремейк игры/катсцены/конец ночи/13.png" id="14_nxeco"]
+[ext_resource type="Texture2D" uid="uid://pxgdeee0n8q4" path="res://assets/Ремейк игры/катсцены/конец ночи/14.png" id="15_6n76q"]
+[ext_resource type="Script" path="res://scripts/sann_ai.gd" id="16_sann_ai"]
+[ext_resource type="Resource" path="res://resources/night_1.tres" id="17_night_config"]
+[ext_resource type="Script" path="res://scripts/night_presentation.gd" id="18_night_presentation"]
+[ext_resource type="Script" path="res://scripts/night_audio.gd" id="19_night_audio"]
+[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/эибиант(ночь).wav" id="20_audio_ambience"]
+[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/начало ночи.wav" id="21_audio_start"]
+[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/офис/дверь/кнопка двери.wav" id="22_audio_door_button"]
+[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/офис/дверь/дверь.wav" id="23_audio_door"]
+[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/офис/планшет/поднятия планшета.wav" id="24_audio_tablet_up"]
+[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/офис/планшет/опускание планшета.wav" id="25_audio_tablet_down"]
+[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/офис/планшет/переключение камер.wav" id="26_audio_camera_switch"]
+[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/роботы у офиса/санн/перед скримером.mp3" id="27_audio_sann_warning"]
+[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/роботы у офиса/санн/последняя фаза.wav" id="28_audio_sann_urgent"]
+[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/роботы у офиса/санн/нажал на нос Санн.wav" id="29_audio_sann_nose"]
+[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/скримеры/скример Санн.wav" id="30_audio_sann_jumpscare"]
+[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/скримеры/села батарейка.wav" id="31_audio_power_out"]
+[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/ночь пройдена.wav" id="32_audio_won"]
+[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/поражение.wav" id="33_audio_lost"]
 
-[node name="Night" type="Node2D"]
+[sub_resource type="Animation" id="Animation_gee24"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_bfdm0"]
+resource_name = "night_end"
+length = 4.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"default", 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2l2gr"]
+_data = {
+&"RESET": SubResource("Animation_gee24"),
+&"night_end": SubResource("Animation_bfdm0")
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xlo6r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_gee24")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_611y7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_kr7t1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_upab3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_dk0dp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_b2cjx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_okpa3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_p3wtm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_0d7w5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_08eyn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ccc2j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_1c574")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_nxeco")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_6n76q")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Night" type="Node2D" node_paths=PackedStringArray("sann_ai")]
 script = ExtResource("1_f4wc0")
+config = ExtResource("17_night_config")
+sann_ai = NodePath("Animatronics/SannAI")
+
+[node name="NightEnd" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NightEnd"]
+libraries = {
+&"": SubResource("AnimationLibrary_2l2gr")
+}
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NightEnd"]
+sprite_frames = SubResource("SpriteFrames_xlo6r")
+centered = false
+
+[node name="Animatronics" type="Node" parent="."]
+
+[node name="SannAI" type="Node" parent="Animatronics"]
+script = ExtResource("16_sann_ai")
+
+[node name="OldCreeperAI" type="Node" parent="Animatronics"]
+script = ExtResource("4_jws2p")
+
+[node name="OldCreeperTimer" type="Timer" parent="Animatronics/OldCreeperAI"]
+
+[node name="DogAI" type="Node" parent="Animatronics"]
+script = ExtResource("4_ccsv5")
+
+[node name="DogTimer" type="Timer" parent="Animatronics/DogAI"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 script = ExtResource("3_2olu8")
+BASE_CAMERA_SPEED = 1000
 
 [node name="Office" parent="." instance=ExtResource("3_ln2um")]
+
+[node name="SannView" parent="Office" index="3" node_paths=PackedStringArray("night", "sann_ai")]
+night = NodePath("../..")
+sann_ai = NodePath("../../Animatronics/SannAI")
+
+[node name="DoorButton" parent="Office" index="4" node_paths=PackedStringArray("Night")]
+Night = NodePath("../..")
+
+[node name="Door" parent="Office" index="5" node_paths=PackedStringArray("Night")]
+Night = NodePath("../..")
+
+[node name="CameraSystem" parent="." node_paths=PackedStringArray("Night") instance=ExtResource("4_ln2um")]
+Night = NodePath("..")
+
+[node name="NightPresentation" type="CanvasLayer" parent="." node_paths=PackedStringArray("night")]
+layer = 10
+script = ExtResource("18_night_presentation")
+night = NodePath("..")
+
+[node name="NightAudio" type="Node" parent="." node_paths=PackedStringArray("night", "sann_ai", "camera_system", "ambience_player", "control_player", "door_player", "warning_player", "nose_player", "outcome_player")]
+script = ExtResource("19_night_audio")
+night = NodePath("..")
+sann_ai = NodePath("../Animatronics/SannAI")
+camera_system = NodePath("../CameraSystem")
+ambience_player = NodePath("Ambience")
+control_player = NodePath("Control")
+door_player = NodePath("DoorMotion")
+warning_player = NodePath("Warning")
+nose_player = NodePath("Nose")
+outcome_player = NodePath("Outcome")
+ambience_stream = ExtResource("20_audio_ambience")
+start_stream = ExtResource("21_audio_start")
+door_button_stream = ExtResource("22_audio_door_button")
+door_motion_stream = ExtResource("23_audio_door")
+tablet_up_stream = ExtResource("24_audio_tablet_up")
+tablet_down_stream = ExtResource("25_audio_tablet_down")
+camera_switch_stream = ExtResource("26_audio_camera_switch")
+sann_warning_stream = ExtResource("27_audio_sann_warning")
+sann_urgent_stream = ExtResource("28_audio_sann_urgent")
+sann_nose_stream = ExtResource("29_audio_sann_nose")
+sann_jumpscare_stream = ExtResource("30_audio_sann_jumpscare")
+power_out_stream = ExtResource("31_audio_power_out")
+won_stream = ExtResource("32_audio_won")
+lost_stream = ExtResource("33_audio_lost")
+
+[node name="Ambience" type="AudioStreamPlayer" parent="NightAudio"]
+max_polyphony = 1
+
+[node name="Control" type="AudioStreamPlayer" parent="NightAudio"]
+max_polyphony = 2
+
+[node name="DoorMotion" type="AudioStreamPlayer" parent="NightAudio"]
+
+[node name="Warning" type="AudioStreamPlayer" parent="NightAudio"]
+
+[node name="Nose" type="AudioStreamPlayer" parent="NightAudio"]
+
+[node name="Outcome" type="AudioStreamPlayer" parent="NightAudio"]
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+
+[editable path="Office"]

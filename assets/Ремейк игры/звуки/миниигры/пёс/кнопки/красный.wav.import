@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dkxtwxvb0lgmj"
+path="res://.godot/imported/красный.wav-e382bd0f537c789e0cc8097cf79d9a73.sample"
+
+[deps]
+
+source_file="res://assets/Ремейк игры/звуки/миниигры/пёс/кнопки/красный.wav"
+dest_files=["res://.godot/imported/красный.wav-e382bd0f537c789e0cc8097cf79d9a73.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

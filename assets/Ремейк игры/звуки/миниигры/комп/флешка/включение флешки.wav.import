@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c0310x2x0w5qv"
+path="res://.godot/imported/включение флешки.wav-5cef96c127071b74ae0ad5f8a3363ddb.sample"
+
+[deps]
+
+source_file="res://assets/Ремейк игры/звуки/миниигры/комп/флешка/включение флешки.wav"
+dest_files=["res://.godot/imported/включение флешки.wav-5cef96c127071b74ae0ad5f8a3363ddb.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

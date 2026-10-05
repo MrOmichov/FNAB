@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cpc21ldmjr70u"
+path="res://.godot/imported/выключение флешки.wav-09a0837a97069a251a7c16737bcce7f6.sample"
+
+[deps]
+
+source_file="res://assets/Ремейк игры/звуки/миниигры/комп/флешка/выключение флешки.wav"
+dest_files=["res://.godot/imported/выключение флешки.wav-09a0837a97069a251a7c16737bcce7f6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

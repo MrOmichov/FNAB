@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c841jnb506is"
+path="res://.godot/imported/смех два.wav-953b1fee989f30cd5f8c1affb947f943.sample"
+
+[deps]
+
+source_file="res://assets/Ремейк игры/звуки/рандом звуки ночью/смех два.wav"
+dest_files=["res://.godot/imported/смех два.wav-953b1fee989f30cd5f8c1affb947f943.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

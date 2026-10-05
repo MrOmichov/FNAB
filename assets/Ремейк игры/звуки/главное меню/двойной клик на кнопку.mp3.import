@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://csxckb35bn3am"
+path="res://.godot/imported/двойной клик на кнопку.mp3-5dcca41e69157a21a0efef7587ba8087.mp3str"
+
+[deps]
+
+source_file="res://assets/Ремейк игры/звуки/главное меню/двойной клик на кнопку.mp3"
+dest_files=["res://.godot/imported/двойной клик на кнопку.mp3-5dcca41e69157a21a0efef7587ba8087.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

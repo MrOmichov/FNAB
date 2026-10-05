@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dj8qrfl0q2rmr"
+path="res://.godot/imported/правый вентилятор.wav-c2a698615cd575bc2200b40bdbb2c89e.sample"
+
+[deps]
+
+source_file="res://assets/Ремейк игры/звуки/офис/вертушки/правый вентилятор.wav"
+dest_files=["res://.godot/imported/правый вентилятор.wav-c2a698615cd575bc2200b40bdbb2c89e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

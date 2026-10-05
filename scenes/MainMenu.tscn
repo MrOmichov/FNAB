@@ -1,29 +1,49 @@
-[gd_scene load_steps=13 format=3 uid="uid://c0cdkekkale33"]
+[gd_scene load_steps=19 format=3 uid="uid://c0cdkekkale33"]
 
 [ext_resource type="Script" uid="uid://guigqxfr8esn" path="res://scripts/Main_menu.gd" id="1_yqorp"]
-[ext_resource type="Texture2D" uid="uid://b5ynh31oufywg" path="res://assets/background/Фон Меню.png" id="2_0ykhv"]
-[ext_resource type="Texture2D" uid="uid://cncuel48oavlx" path="res://assets/ui/new_game_button.tres" id="3_826wr"]
-[ext_resource type="Texture2D" uid="uid://d4ccj7b1spdy8" path="res://assets/ui/continue_button_normal.tres" id="3_ow34m"]
-[ext_resource type="Texture2D" uid="uid://bb18uk2cs2a2h" path="res://assets/ui/Продолжить вкл.png" id="4_l72w3"]
-[ext_resource type="Texture2D" uid="uid://dnwkdwb4xsn4y" path="res://assets/ui/новая игра вкл.png" id="4_ucygd"]
-[ext_resource type="Texture2D" uid="uid://d3eaacjt4p7mf" path="res://assets/ui/exit_button.tres" id="7_ucygd"]
-[ext_resource type="Texture2D" uid="uid://dd1xkjstd3v6r" path="res://assets/ui/Выход вкл.png" id="8_mipys"]
+[ext_resource type="Texture2D" uid="uid://c3uc5iki1pvlh" path="res://assets/Ремейк игры/Меню/Фон Меню.png" id="2_8a8k8"]
+[ext_resource type="Texture2D" uid="uid://csak8cgqpyk41" path="res://assets/Ремейк игры/Меню/кнопки/рус/новая игра выкл.png" id="3_7la6k"]
+[ext_resource type="Texture2D" uid="uid://d1ajt6rf0bvv0" path="res://assets/Ремейк игры/Меню/кнопки/рус/новая игра вкл.png" id="4_7la6k"]
+[ext_resource type="Texture2D" uid="uid://dj45t1oes143o" path="res://assets/Ремейк игры/Меню/кнопки/рус/Продолжить выкл.png" id="5_7la6k"]
+[ext_resource type="Texture2D" uid="uid://sss2q1h4gb4l" path="res://assets/Ремейк игры/Меню/кнопки/рус/Продолжить вкл.png" id="6_2nypq"]
+[ext_resource type="Texture2D" uid="uid://djsp8abrnx8ul" path="res://assets/Ремейк игры/Меню/кнопки/рус/extra выкл.png" id="7_7la6k"]
+[ext_resource type="Texture2D" uid="uid://dxbxffavmxhc5" path="res://assets/Ремейк игры/Меню/кнопки/рус/Выход вкл.png" id="9_7la6k"]
+[ext_resource type="Texture2D" uid="uid://53ghlhgkdu7x" path="res://assets/Ремейк игры/Меню/Комп(нахер Берри))/комп выкл.png" id="10_2nypq"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mipys"]
-atlas = ExtResource("4_ucygd")
-region = Rect2(66.3379, 380.839, 384.346, 70.7384)
+[sub_resource type="AtlasTexture" id="AtlasTexture_2nypq"]
+atlas = ExtResource("3_7la6k")
+region = Rect2(72, 400, 376, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l72w3"]
-atlas = ExtResource("4_l72w3")
-region = Rect2(66.3379, 477.515, 365.482, 63.6646)
+[sub_resource type="AtlasTexture" id="AtlasTexture_bky6r"]
+atlas = ExtResource("4_7la6k")
+region = Rect2(72, 400, 376, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_826wr"]
-atlas = ExtResource("4_l72w3")
-region = Rect2(66.3379, 477.515, 365.482, 63.6646)
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4mxc"]
+atlas = ExtResource("4_7la6k")
+region = Rect2(72, 400, 376, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5faoh"]
+atlas = ExtResource("5_7la6k")
+region = Rect2(72, 488, 352, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ptake"]
+atlas = ExtResource("6_2nypq")
+region = Rect2(72, 488, 352, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hubol"]
+atlas = ExtResource("6_2nypq")
+region = Rect2(72, 488, 352, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vx4p"]
+atlas = ExtResource("7_7la6k")
+region = Rect2(72, 600, 264, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8a8k8"]
-atlas = ExtResource("8_mipys")
+atlas = ExtResource("9_7la6k")
 region = Rect2(63.1342, 1004.08, 241.659, 65.907)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2nypq"]
+size = Vector2(585, 594)
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource("1_yqorp")
@@ -34,7 +54,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_0ykhv")
+texture = ExtResource("2_8a8k8")
 expand_mode = 5
 stretch_mode = 6
 
@@ -45,31 +65,55 @@ anchor_top = 0.041
 anchor_right = 0.398
 anchor_bottom = 0.096
 offset_left = 12.2
-offset_top = 216.72
-offset_right = -274.16
-offset_bottom = 601.32
+offset_top = 327.72
+offset_right = -239.16
+offset_bottom = 938.32
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 7
-alignment = 1
+theme_override_constants/separation = 400
 
-[node name="NewGameButton" type="TextureButton" parent="Buttons"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons"]
 layout_mode = 2
-texture_normal = ExtResource("3_826wr")
-texture_pressed = SubResource("AtlasTexture_mipys")
-texture_hover = SubResource("AtlasTexture_mipys")
+theme_override_constants/separation = 50
+
+[node name="NewGameButton" type="TextureButton" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_2nypq")
+texture_pressed = SubResource("AtlasTexture_bky6r")
+texture_hover = SubResource("AtlasTexture_l4mxc")
 stretch_mode = 4
 
-[node name="ContinueButton" type="TextureButton" parent="Buttons"]
+[node name="ContinueButton" type="TextureButton" parent="Buttons/VBoxContainer"]
 layout_mode = 2
-texture_normal = ExtResource("3_ow34m")
-texture_pressed = SubResource("AtlasTexture_l72w3")
-texture_hover = SubResource("AtlasTexture_826wr")
+texture_normal = SubResource("AtlasTexture_5faoh")
+texture_pressed = SubResource("AtlasTexture_ptake")
+texture_hover = SubResource("AtlasTexture_hubol")
+stretch_mode = 4
+
+[node name="ExtraButton" type="TextureButton" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_8vx4p")
 stretch_mode = 4
 
 [node name="ExitButton" type="TextureButton" parent="Buttons"]
 layout_mode = 2
-texture_normal = ExtResource("7_ucygd")
 texture_pressed = SubResource("AtlasTexture_8a8k8")
 texture_hover = SubResource("AtlasTexture_8a8k8")
 stretch_mode = 4
+
+[node name="Computer" type="Sprite2D" parent="."]
+texture = ExtResource("10_2nypq")
+centered = false
+
+[node name="Area2D" type="Area2D" parent="Computer"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Computer/Area2D"]
+position = Vector2(1636.5, 781)
+shape = SubResource("RectangleShape2D_2nypq")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.7
+
+[connection signal="mouse_entered" from="Computer/Area2D" to="." method="_on_computer_mouse_entered"]
+[connection signal="mouse_exited" from="Computer/Area2D" to="." method="_on_computer_mouse_exited"]
+[connection signal="timeout" from="Timer" to="." method="timeout"]

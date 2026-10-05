@@ -1,16 +1,113 @@
-[gd_scene load_steps=3 format=3 uid="uid://co8o8whmf7jla"]
+[gd_scene load_steps=21 format=3 uid="uid://co8o8whmf7jla"]
 
-[ext_resource type="Texture2D" uid="uid://gcl16av1tres" path="res://assets/background/офис.png" id="1_3e7dm"]
+[ext_resource type="Texture2D" uid="uid://qieptpvt6uel" path="res://assets/Ремейк игры/камера/комнаты/офис/офис.png" id="1_f0apd"]
+[ext_resource type="Texture2D" uid="uid://dva6t2yy581qv" path="res://assets/Ремейк игры/камера/комнаты/постеры/постер 4.png" id="2_hinxj"]
+[ext_resource type="Texture2D" uid="uid://b4yelnxnpw6bm" path="res://assets/Ремейк игры/камера/комнаты/офис/кнопки/дверь закрыта.png" id="3_xoyss"]
+[ext_resource type="Script" uid="uid://bvinjc3c3xjm0" path="res://scripts/door_button.gd" id="4_cb63e"]
+[ext_resource type="Texture2D" uid="uid://bpkynmnl4rqpw" path="res://assets/Ремейк игры/камера/комнаты/офис/кнопки/дверь открыта.png" id="5_0shit"]
+[ext_resource type="Texture2D" uid="uid://djlayxfxlbb48" path="res://assets/Ремейк игры/камера/комнаты/офис/дверь/дверной проём.png" id="6_4le2u"]
+[ext_resource type="Texture2D" uid="uid://dd002a22ln2e" path="res://assets/Ремейк игры/камера/комнаты/офис/дверь/дверь вкл.png" id="7_gt8ql"]
+[ext_resource type="Texture2D" uid="uid://b40bvsrkav0ck" path="res://assets/Ремейк игры/камера/комнаты/офис/дверь/дверь вкл 0.png" id="8_1tact"]
+[ext_resource type="Texture2D" uid="uid://45eh5xuin5cy" path="res://assets/Ремейк игры/камера/комнаты/офис/дверь/дверь вкл 2.png" id="9_4rawq"]
+[ext_resource type="Texture2D" uid="uid://byxqbgfld2nem" path="res://assets/Ремейк игры/камера/комнаты/офис/дверь/дверь вкл 3.png" id="10_siqwn"]
+[ext_resource type="Texture2D" uid="uid://cdkow3ob2pbgy" path="res://assets/Ремейк игры/камера/комнаты/офис/дверь/дверь вкл 4.png" id="11_03xqq"]
+[ext_resource type="Texture2D" uid="uid://b14d5evposvwl" path="res://assets/Ремейк игры/камера/комнаты/офис/дверь/дверь вкл 5.png" id="12_8w0sg"]
+[ext_resource type="Texture2D" uid="uid://1naahmy75wj0" path="res://assets/Ремейк игры/камера/комнаты/офис/дверь/дверь вкл 6.png" id="13_tncm5"]
+[ext_resource type="Texture2D" uid="uid://b4q02cljosgtr" path="res://assets/Ремейк игры/камера/комнаты/офис/дверь/дверь вкл 7.png" id="14_3v58c"]
+[ext_resource type="Script" uid="uid://bq15ulttfxa7n" path="res://scripts/door.gd" id="14_siqwn"]
+[ext_resource type="Script" path="res://scripts/sann_view.gd" id="15_sann_view"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hulg7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4g2wo"]
+size = Vector2(106, 162)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sann_nose"]
+size = Vector2(110, 78)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4pfcd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_3v58c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_tncm5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_8w0sg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_03xqq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_siqwn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_4rawq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_1tact")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gt8ql")
+}],
+"loop": false,
+"name": &"default",
+"speed": 24.0
+}]
 
 [node name="Office" type="Node2D"]
 
 [node name="OfficeBackground" type="Sprite2D" parent="."]
-texture = ExtResource("1_3e7dm")
+texture = ExtResource("1_f0apd")
 centered = false
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_hulg7")
+
+[node name="Постер4" type="Sprite2D" parent="."]
+position = Vector2(638, 476)
+scale = Vector2(0.462156, 0.462156)
+texture = ExtResource("2_hinxj")
+region_enabled = true
+region_rect = Rect2(1459.01, 61.3899, 436.241, 659.07)
+
+[node name="SannView" type="Sprite2D" parent="."]
+centered = false
+script = ExtResource("15_sann_view")
+
+[node name="NoseHitArea" type="Area2D" parent="SannView"]
+input_pickable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SannView/NoseHitArea"]
+position = Vector2(315, 657)
+shape = SubResource("RectangleShape2D_sann_nose")
+
+[node name="DoorButton" type="Sprite2D" parent="."]
+texture = ExtResource("3_xoyss")
+centered = false
+script = ExtResource("4_cb63e")
+
+[node name="DoorOpenButton" type="Sprite2D" parent="DoorButton"]
+texture = ExtResource("5_0shit")
+centered = false
+
+[node name="Area2D" type="Area2D" parent="DoorButton"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorButton/Area2D"]
+position = Vector2(2212, 531)
+shape = SubResource("RectangleShape2D_4g2wo")
+
+[node name="Doorway" type="Sprite2D" parent="."]
+texture = ExtResource("6_4le2u")
+centered = false
+
+[node name="Door" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4pfcd")
+centered = false
+script = ExtResource("14_siqwn")
+
+[connection signal="input_event" from="DoorButton/Area2D" to="DoorButton" method="_on_area_2d_input_event"]

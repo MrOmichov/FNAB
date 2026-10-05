@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cj76b1egad12r"
+path="res://.godot/imported/ориг.mp3-7ff2182dcb381d8cf8a34bf044ff902b.mp3str"
+
+[deps]
+
+source_file="res://assets/Ремейк игры/звуки/офис/вертушки/ориг.mp3"
+dest_files=["res://.godot/imported/ориг.mp3-7ff2182dcb381d8cf8a34bf044ff902b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

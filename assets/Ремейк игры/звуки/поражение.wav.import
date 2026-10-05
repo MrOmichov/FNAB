@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cp3fn2mfb32mr"
+path="res://.godot/imported/поражение.wav-b121931cbe6ce0018574ea37f22125fb.sample"
+
+[deps]
+
+source_file="res://assets/Ремейк игры/звуки/поражение.wav"
+dest_files=["res://.godot/imported/поражение.wav-b121931cbe6ce0018574ea37f22125fb.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

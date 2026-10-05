@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bhyf6npqv1dmt"
+path="res://.godot/imported/клик по кнопке.mp3-c083de421fbdc4f4c1ab9c699e3d362c.mp3str"
+
+[deps]
+
+source_file="res://assets/Ремейк игры/звуки/главное меню/клик по кнопке.mp3"
+dest_files=["res://.godot/imported/клик по кнопке.mp3-c083de421fbdc4f4c1ab9c699e3d362c.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

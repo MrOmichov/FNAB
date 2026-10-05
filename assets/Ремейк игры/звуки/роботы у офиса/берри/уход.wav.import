@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://vybex3dewts7"
+path="res://.godot/imported/уход.wav-8a94defccfe427f9f9cf1c7d84942486.sample"
+
+[deps]
+
+source_file="res://assets/Ремейк игры/звуки/роботы у офиса/берри/уход.wav"
+dest_files=["res://.godot/imported/уход.wav-8a94defccfe427f9f9cf1c7d84942486.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

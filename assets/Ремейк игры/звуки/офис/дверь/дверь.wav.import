@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d3h6d50q4es4g"
+path="res://.godot/imported/дверь.wav-28666805654e66a85e7776d7bdc7ff7d.sample"
+
+[deps]
+
+source_file="res://assets/Ремейк игры/звуки/офис/дверь/дверь.wav"
+dest_files=["res://.godot/imported/дверь.wav-28666805654e66a85e7776d7bdc7ff7d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
