@@ -60,5 +60,46 @@ touch-управления. APK не устанавливался. `scripts/came
 планшет и пульт по `mouse_entered`; `scripts/Camera.gd` двигает вид по положению
 мыши. Это существующее управление требует ручной проверки на телефоне.
 
-`dist/` и `.appdata/` исключены из Git. APK — проверочный debug-артефакт,
-не опубликованный release.
+## Release APK и подпись
+
+**VERIFIED (2026-10-06):** дополнительно собран `dist/FNAB-release.apk` через
+`--export-release Android`. Размер — 154 504 012 байт. Подписи v1/v2/v3 подтверждены,
+`assets/project.binary` присутствует. `aapt2 dump badging` подтвердил package
+`org.mromichov.fnab`, version `0.1` / code `1`, оба ARM ABI и отсутствие
+`application-debuggable`. Ключи, credentials, tests и cache в APK отсутствуют.
+Финальный export log не содержит `ERROR`/`WARNING`.
+
+Отдельный release-ключ создан в `.appdata/signing/fnab-release.keystore`, alias
+`fnab-release`. Случайный пароль сохранён в локальном
+`.appdata/signing/release-signing.json`. Оба файла исключены из Git, не находятся
+в APK и не публикуются. Для следующих обновлений сохранить резервную копию
+**обоих файлов** в личном защищённом хранилище: новый ключ не заменяет этот ключ
+для обновления уже установленной release-сборки. Debug APK подписан другим ключом;
+установка release поверх него потребует удаления debug-приложения.
+
+Release export использует официальные [переменные окружения Godot 4.4.1](https://github.com/godotengine/godot/blob/4.4.1-stable/platform/android/export/export_plugin.h#L39-L46)
+для credentials; пароль не записывается в `export_presets.cfg`:
+
+```powershell
+# Сначала настроить SDK/templates и локальные TEMP/Java как выше.
+$signing = Get-Content '.appdata/signing/release-signing.json' -Raw | ConvertFrom-Json
+$env:GODOT_ANDROID_KEYSTORE_RELEASE_PATH = Join-Path (Get-Location) $signing.keystore
+$env:GODOT_ANDROID_KEYSTORE_RELEASE_USER = $signing.alias
+$env:GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD = $signing.password
+try {
+    & 'C:/Godot_v4.4.1/Godot_v4.4.1-stable_win64_console.exe' `
+        --headless --path . --export-release Android 'dist/FNAB-release.apk'
+} finally {
+    Remove-Item Env:GODOT_ANDROID_KEYSTORE_RELEASE_PATH
+    Remove-Item Env:GODOT_ANDROID_KEYSTORE_RELEASE_USER
+    Remove-Item Env:GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD
+    $signing = $null
+}
+```
+
+**VERIFIED:** `aapt2` сообщает о ссылке на отсутствующий `themed_icon.xml` в
+Android template; подпись и APK export проходят. **UNKNOWN:** влияние этого
+предупреждения на themed launcher icon; запуск release на устройстве ещё не проверен.
+
+`dist/`, `.appdata/` и типовые signing-key файлы исключены из Git.
+Release APK создан локально; в магазин или на сервер не публиковался.

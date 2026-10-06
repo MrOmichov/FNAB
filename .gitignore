@@ -7,6 +7,12 @@
 /.appdata/
 export_credentials.cfg
 
+# Local Android signing keys and credentials (never publish with source).
+*.keystore
+*.jks
+*.p12
+release-signing*.json
+
 # Editor backups and temporary files (including Krita backups).
 *~
 *.bak
