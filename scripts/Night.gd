@@ -12,6 +12,7 @@ signal shock_cooldown_changed(seconds: float)
 signal night_started()
 signal sann_nose_clicked()
 signal outcome_reached(won: bool, reason: String)
+signal progress_save_failed(message: String)
 
 const MAX_POWER = 1000
 const BASE_ENERGY_CONSUMPTION = 1
@@ -33,8 +34,13 @@ var shock_cooldown_remaining: float = 0.0
 var _clock_elapsed: float = 0.0
 var _power_elapsed: float = 0.0
 var _power_out_elapsed: float = 0.0
+var _campaign_id: int = -1
 
 func _ready() -> void:
+	var launch: Dictionary = SaveGame.consume_night_request()
+	if not launch.is_empty():
+		config = launch["config"]
+		_campaign_id = int(launch["campaign_id"])
 	if config == null:
 		config = preload("res://resources/night_1.tres")
 	var legacy_timer := get_node_or_null("Timer") as Timer
@@ -110,6 +116,9 @@ func advance(delta: float) -> void:
 
 func is_player_input_allowed() -> bool:
 	return phase == Phase.RUNNING
+
+func is_campaign_run() -> bool:
+	return _campaign_id >= 0
 
 func request_door_toggle() -> bool:
 	if not is_player_input_allowed():
@@ -213,6 +222,9 @@ func _finish(won: bool, reason: String) -> void:
 	fan_changed.emit(1, false)
 	_emit_consumption()
 	phase_changed.emit(phase)
+	if won and is_campaign_run():
+		if not SaveGame.record_night_win(config.night_number, _campaign_id):
+			progress_save_failed.emit(SaveGame.last_error)
 	outcome_reached.emit(won, reason)
 
 func _on_sann_attack_requested() -> void:

@@ -13,6 +13,7 @@ func _initialize() -> void:
 
 func _run() -> void:
 	await _test_intro_and_start_state()
+	await _test_newspaper_night_filter_and_reentry()
 	await _test_clock_win_and_terminal_idempotence()
 	await _test_sann_warning_defense_and_timeout()
 	await _test_power_out_grace_and_terminal_state()
@@ -51,6 +52,29 @@ func _test_intro_and_start_state() -> void:
 	_check(night.phase == 1 and start_count[0] == 1, "start transition and signal happen once")
 	_check(night.sann_ai.active == false, "configured inactive Sann stays inactive")
 	await _release_night(night)
+
+
+func _test_newspaper_night_filter_and_reentry() -> void:
+	var first_night := await _spawn_night(_new_config())
+	var first_presentation: Node = first_night.get_node("NightPresentation")
+	_check(first_presentation._visible_state == "newspaper" and first_presentation._newspaper.visible, "fresh first-night scene opens on newspaper")
+	first_presentation._newspaper.get_node("Continue").pressed.emit()
+	_check(first_presentation._visible_state == "intro" and not first_presentation._newspaper.visible, "continue dismisses newspaper into intro")
+	first_presentation._newspaper.get_node("Continue").pressed.emit()
+	_check(first_presentation._visible_state == "intro" and first_night.phase == first_night.Phase.INTRO, "repeated continue cannot start or alter night")
+	await _release_night(first_night)
+
+	var reentered_night := await _spawn_night(_new_config())
+	var reentered_presentation: Node = reentered_night.get_node("NightPresentation")
+	_check(reentered_presentation._visible_state == "newspaper" and reentered_presentation._newspaper.visible, "re-entering a fresh first-night scene shows newspaper again")
+	await _release_night(reentered_night)
+
+	var later_config := _new_config()
+	later_config.night_number = 2
+	var later_night := await _spawn_night(later_config)
+	var later_presentation: Node = later_night.get_node("NightPresentation")
+	_check(later_presentation._visible_state == "intro" and later_presentation._root.visible and not later_presentation._newspaper.visible, "night two skips first-night newspaper")
+	await _release_night(later_night)
 
 
 func _test_clock_win_and_terminal_idempotence() -> void:
@@ -222,7 +246,11 @@ func _test_scene_input_and_monitor_lifecycle() -> void:
 	_check(night.sann_ai == night.get_node("Animatronics/SannAI"), "Night uses the scene SannAI instance")
 	_check(view.sann_ai == night.sann_ai and view.night == night, "office Sann view references authoritative Night and AI")
 	_check(presentation.night == night, "Night presentation observes Night root")
-	_check(presentation._visible_state == "intro" and presentation._root.visible, "intro overlay blocks play until shift start")
+	_check(presentation._visible_state == "newspaper" and presentation._newspaper.visible, "first night shows newspaper before instructions")
+	night.advance(10.0)
+	_check(night.phase == night.Phase.INTRO and night.hours == 0 and night.minutes == 0 and night.power_left == config.power_capacity, "reading newspaper does not advance gameplay")
+	presentation._dismiss_newspaper()
+	_check(presentation._visible_state == "intro" and presentation._root.visible and not presentation._newspaper.visible, "newspaper continuation opens instructions without starting gameplay")
 	_check(not view._nose_area.input_pickable, "Sann nose hit area is disabled during intro")
 	_check(camera.get_node("camera_pad/camera_buttons/cam1").disabled, "camera buttons remain disabled in intro")
 	_check(camera.get_node("camera_pad/battery").texture != null, "camera battery starts with a valid texture")

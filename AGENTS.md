@@ -24,9 +24,9 @@ This is an existing game project, not a greenfield project.
 
 ### Project map and design evidence
 
-- Start orientation with `docs/PROJECT_MAP.md`, `docs/ARCHITECTURE.md`, and `docs/GAMEPLAY.md`; verify affected facts against current source before editing.
+- Start unfamiliar project orientation with `docs/PROJECT_MAP.md`. Read only affected sections of `docs/ARCHITECTURE.md` for ownership/integration, `docs/GAMEPLAY.md` for behavior, `docs/GAMEPLAY_PARAMETERS.md` for tuning, `docs/AUDIO_MAP.md` for audio, and `docs/VISUAL_TESTING.md` for screenshots/reference images. Do not reread unrelated documents or already-understood sections each turn. Verify affected facts against current source before editing.
 - These documents describe the existing implementation. Keep them aligned with relevant changes and distinguish `VERIFIED`, `LIKELY`, and `UNKNOWN`; source wiring is not proof of runtime behavior.
-- For gameplay requirements, inspect `assets/Ремейк игры/мегапомятка.docx`, relevant `помятка*.txt` files under that tree, and `FNAB.md`. Preserve table headers when reading the DOCX. Treat notes as design evidence, not proof that a feature is implemented.
+- For new or unclear gameplay requirements, inspect affected portions of `assets/Ремейк игры/мегапомятка.docx`, relevant `помятка*.txt` files under that tree, and `FNAB.md`. For documented confirmed decisions, start with the relevant ledger section. Preserve table headers when reading the DOCX. Treat notes as design evidence, not proof that a feature is implemented.
 - The memo's first-night difficulty row is Berry/Blacky/Dog/Sann/Old Creeper = 0/0/0/1/0. N1 activates only Sann. `RouteAI` activates the remaining four characters when their configured levels are nonzero. Profiles `resources/night_1.tres` through `night_6.tres` contain the memo's levels; they do not implement menu selection or saved progression.
 - Character identities confirmed by the user: Blacky (`BLACKY`, also spelled Блеки/Блэки in assets) is the bear; Berry (`BERRY`, Берри) is the rabbit. The user subsequently clarified that Dog walks and uses door defense; vents/fan defense belong to Blacky. Berry also uses the door. OC uses the camera-2 shocker; its reset, cost 20 and cooldown 8 seconds are approved provisional rules.
 - Consult `docs/GAMEPLAY_PARAMETERS.md` for confirmed decisions, implemented provisional values and remaining proposals. Runtime N1 tuning lives in `NightConfig` (`scripts/night_config.gd`, `resources/night_1.tres`); the ledger is not loaded by the game. Consult `docs/AUDIO_MAP.md` for night sound wiring and unused audio.
@@ -211,6 +211,15 @@ Use specialized subagents when their role matches the task.
   - Read-only final review.
   - Use for non-trivial gameplay changes before considering them complete.
 
+- `visual_tester`
+  - Visual QA for rendered game states.
+  - Use after scene, UI, asset, camera-view or presentation changes.
+  - Prefer screenshots and concrete reproduction steps.
+  - Verify that visible state matches gameplay state when possible.
+  - Does not automatically fix findings.
+  - Follow `docs/VISUAL_TESTING.md`; load the current Computer Use skill before window interaction.
+  - If this role is absent from the available agent tools, use `tester` with an explicit visual QA assignment; do not claim the custom role was invoked.
+
 ### Delegation workflow
 
 For unfamiliar existing systems:
@@ -220,6 +229,13 @@ For unfamiliar existing systems:
 For non-trivial implementation work:
 
 `recon if needed -> architect -> gameplay/scene_ui -> tester -> reviewer`
+
+Add `visual_tester` when rendered output changes. Small, understood changes do
+not require the full chain. Give agents narrow ownership, affected paths,
+acceptance criteria and relevant prior findings; avoid duplicate investigation.
+Reports should contain findings with evidence, checks performed and unverified
+states. Omit empty report sections and long logs. Only one agent may control
+the game window at a time; share its verified results with other agents.
 
 Do not start implementation while important behavior of the affected
 existing system is still unknown.

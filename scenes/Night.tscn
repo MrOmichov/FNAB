@@ -20,25 +20,25 @@
 [ext_resource type="Texture2D" uid="uid://dxovud0rv3eac" path="res://assets/Ремейк игры/катсцены/конец ночи/12.png" id="13_1c574"]
 [ext_resource type="Texture2D" uid="uid://chi5jqkmtb5dd" path="res://assets/Ремейк игры/катсцены/конец ночи/13.png" id="14_nxeco"]
 [ext_resource type="Texture2D" uid="uid://pxgdeee0n8q4" path="res://assets/Ремейк игры/катсцены/конец ночи/14.png" id="15_6n76q"]
-[ext_resource type="Script" path="res://scripts/sann_ai.gd" id="16_sann_ai"]
+[ext_resource type="Script" uid="uid://dfec2th3u1w8f" path="res://scripts/sann_ai.gd" id="16_sann_ai"]
 [ext_resource type="Resource" path="res://resources/night_1.tres" id="17_night_config"]
-[ext_resource type="Script" path="res://scripts/night_presentation.gd" id="18_night_presentation"]
-[ext_resource type="Script" path="res://scripts/night_audio.gd" id="19_night_audio"]
-[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/эибиант(ночь).wav" id="20_audio_ambience"]
-[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/начало ночи.wav" id="21_audio_start"]
-[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/офис/дверь/кнопка двери.wav" id="22_audio_door_button"]
-[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/офис/дверь/дверь.wav" id="23_audio_door"]
-[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/офис/планшет/поднятия планшета.wav" id="24_audio_tablet_up"]
-[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/офис/планшет/опускание планшета.wav" id="25_audio_tablet_down"]
-[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/офис/планшет/переключение камер.wav" id="26_audio_camera_switch"]
-[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/роботы у офиса/санн/перед скримером.mp3" id="27_audio_sann_warning"]
-[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/роботы у офиса/санн/последняя фаза.wav" id="28_audio_sann_urgent"]
-[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/роботы у офиса/санн/нажал на нос Санн.wav" id="29_audio_sann_nose"]
-[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/скримеры/скример Санн.wav" id="30_audio_sann_jumpscare"]
-[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/скримеры/села батарейка.wav" id="31_audio_power_out"]
-[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/ночь пройдена.wav" id="32_audio_won"]
-[ext_resource type="AudioStream" path="res://assets/Ремейк игры/звуки/поражение.wav" id="33_audio_lost"]
-[ext_resource type="Script" path="res://scripts/route_ai.gd" id="34_route_ai"]
+[ext_resource type="Script" uid="uid://bwupi3hhmwig0" path="res://scripts/night_presentation.gd" id="18_night_presentation"]
+[ext_resource type="Script" uid="uid://8edvt2jb6obn" path="res://scripts/night_audio.gd" id="19_night_audio"]
+[ext_resource type="AudioStream" uid="uid://7wedsce3i8rx" path="res://assets/Ремейк игры/звуки/эибиант(ночь).wav" id="20_audio_ambience"]
+[ext_resource type="AudioStream" uid="uid://bd5bt2l4rarl5" path="res://assets/Ремейк игры/звуки/начало ночи.wav" id="21_audio_start"]
+[ext_resource type="AudioStream" uid="uid://bhjen1lfl5s74" path="res://assets/Ремейк игры/звуки/офис/дверь/кнопка двери.wav" id="22_audio_door_button"]
+[ext_resource type="AudioStream" uid="uid://d3h6d50q4es4g" path="res://assets/Ремейк игры/звуки/офис/дверь/дверь.wav" id="23_audio_door"]
+[ext_resource type="AudioStream" uid="uid://l18eacxosw1l" path="res://assets/Ремейк игры/звуки/офис/планшет/поднятия планшета.wav" id="24_audio_tablet_up"]
+[ext_resource type="AudioStream" uid="uid://c45qhq6ld16ac" path="res://assets/Ремейк игры/звуки/офис/планшет/опускание планшета.wav" id="25_audio_tablet_down"]
+[ext_resource type="AudioStream" uid="uid://bv075kqrjwcqj" path="res://assets/Ремейк игры/звуки/офис/планшет/переключение камер.wav" id="26_audio_camera_switch"]
+[ext_resource type="AudioStream" uid="uid://dnyqobkmjmt83" path="res://assets/Ремейк игры/звуки/роботы у офиса/санн/перед скримером.mp3" id="27_audio_sann_warning"]
+[ext_resource type="AudioStream" uid="uid://cgpsmus1ekxgh" path="res://assets/Ремейк игры/звуки/роботы у офиса/санн/последняя фаза.wav" id="28_audio_sann_urgent"]
+[ext_resource type="AudioStream" uid="uid://r4wt8lr4ytyg" path="res://assets/Ремейк игры/звуки/роботы у офиса/санн/нажал на нос Санн.wav" id="29_audio_sann_nose"]
+[ext_resource type="AudioStream" uid="uid://deafhut08j8v5" path="res://assets/Ремейк игры/звуки/скримеры/скример Санн.wav" id="30_audio_sann_jumpscare"]
+[ext_resource type="AudioStream" uid="uid://j361kemkwybd" path="res://assets/Ремейк игры/звуки/скримеры/села батарейка.wav" id="31_audio_power_out"]
+[ext_resource type="AudioStream" uid="uid://m2sw0623qfo7" path="res://assets/Ремейк игры/звуки/ночь пройдена.wav" id="32_audio_won"]
+[ext_resource type="AudioStream" uid="uid://cp3fn2mfb32mr" path="res://assets/Ремейк игры/звуки/поражение.wav" id="33_audio_lost"]
+[ext_resource type="Script" uid="uid://cfag53igh2h3q" path="res://scripts/route_ai.gd" id="34_route_ai"]
 
 [sub_resource type="Animation" id="Animation_gee24"]
 length = 0.001
@@ -167,7 +167,7 @@ sann_ai = NodePath("../../Animatronics/SannAI")
 [node name="DoorButton" parent="Office" index="4" node_paths=PackedStringArray("Night")]
 Night = NodePath("../..")
 
-[node name="Door" parent="Office" index="5" node_paths=PackedStringArray("Night")]
+[node name="Door" parent="Office" index="6" node_paths=PackedStringArray("Night")]
 Night = NodePath("../..")
 
 [node name="CameraSystem" parent="." node_paths=PackedStringArray("Night") instance=ExtResource("4_ln2um")]
@@ -178,12 +178,12 @@ layer = 10
 script = ExtResource("18_night_presentation")
 night = NodePath("..")
 
-[node name="NightAudio" type="Node" parent="." node_paths=PackedStringArray("night", "sann_ai", "route_ai", "camera_system", "ambience_player", "control_player", "door_player", "warning_player", "nose_player", "outcome_player", "left_fan_player", "right_fan_player", "dog_player", "berry_player", "blacky_player")]
+[node name="NightAudio" type="Node" parent="." node_paths=PackedStringArray("night", "sann_ai", "camera_system", "route_ai", "ambience_player", "control_player", "door_player", "warning_player", "nose_player", "outcome_player", "left_fan_player", "right_fan_player", "dog_player", "berry_player", "blacky_player")]
 script = ExtResource("19_night_audio")
 night = NodePath("..")
 sann_ai = NodePath("../Animatronics/SannAI")
-route_ai = NodePath("../Animatronics/RouteAI")
 camera_system = NodePath("../CameraSystem")
+route_ai = NodePath("../Animatronics/RouteAI")
 ambience_player = NodePath("Ambience")
 control_player = NodePath("Control")
 door_player = NodePath("DoorMotion")
@@ -211,7 +211,6 @@ won_stream = ExtResource("32_audio_won")
 lost_stream = ExtResource("33_audio_lost")
 
 [node name="Ambience" type="AudioStreamPlayer" parent="NightAudio"]
-max_polyphony = 1
 
 [node name="Control" type="AudioStreamPlayer" parent="NightAudio"]
 max_polyphony = 2

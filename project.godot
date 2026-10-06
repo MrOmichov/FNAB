@@ -19,6 +19,7 @@ config/icon="res://assets/Ремейк игры/иконка/и конка.png"
 
 Global="*res://scripts/global.gd"
 AnimatronicMgnt="*res://scripts/animatronic_mgnt.gd"
+SaveGame="*res://scripts/save_game.gd"
 
 [display]
 

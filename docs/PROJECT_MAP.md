@@ -6,13 +6,13 @@
 - **LIKELY** — временная трактовка замысла/баланс, разрешённая автором.
 - **UNKNOWN** — неизвестно или не проверено. Подключение в коде не означает слухового или визуального плейтеста.
 
-Связанные документы: [ARCHITECTURE.md](ARCHITECTURE.md), [GAMEPLAY.md](GAMEPLAY.md), [GAMEPLAY_PARAMETERS.md](GAMEPLAY_PARAMETERS.md), [AUDIO_MAP.md](AUDIO_MAP.md).
+Связанные документы: [ARCHITECTURE.md](ARCHITECTURE.md), [GAMEPLAY.md](GAMEPLAY.md), [GAMEPLAY_PARAMETERS.md](GAMEPLAY_PARAMETERS.md), [AUDIO_MAP.md](AUDIO_MAP.md), [VISUAL_TESTING.md](VISUAL_TESTING.md) (запуск, снимки, эталоны и задание визуальному тестировщику). Читать по теме задачи.
 
 ## Точка входа и переходы
 
 **VERIFIED:** `project.godot::run/main_scene` с UID `uid://c0cdkekkale33` соответствует `scenes/MainMenu.tscn`. Godot 4.4.1; проект задаёт функции 4.4/Mobile, viewport 1920×1080 и растяжение viewport.
 
-`Main_menu.gd::_on_new_game_button_pressed()` устанавливает N1 и загружает Night. Новая ночь сначала INTRO, ждёт явного старта. Затем RUNNING → WON либо LOST; POWER_OUT — промежуточная фаза перед проигрышем или победой. Экран результата позволяет повторить сцену или вернуться в меню. Переход к N2 и сохранение не реализованы. Continue остаётся заглушкой; Extra не подключён; Exit завершает процесс.
+`Main_menu.gd::_on_new_game_button_pressed()` устанавливает N1 и загружает Night. Новая ночь сначала INTRO, ждёт явного старта. В N1 `NightPresentation._build_newspaper()` показывает газету; `_dismiss_newspaper()` переводит только UI к инструкции. N2–N6 пропускают газету. Затем RUNNING → WON либо LOST; POWER_OUT — промежуточная фаза перед проигрышем или победой. Экран результата позволяет повторить сцену или вернуться в меню. `SaveGame` записывает контрольные точки между ночами; Continue загружает сохранённый профиль. Победа открывает следующий профиль вплоть до N6. Extra не подключён; Exit завершает процесс.
 
 ## Сцены и скрипты
 
@@ -37,7 +37,7 @@
 
 ## Resources и ассеты
 
-**VERIFIED:** `scripts/night_config.gd::NightConfig` — Resource конфигурации; `resources/night_1.tres` использует его значения по умолчанию. Значения включают номер/конец ночи, темп, энергию, уровни, тайминги всех AI и шокер. `resources/night_2.tres`–`night_6.tres` задают уровни из таблицы DOCX; они не подключены к прогрессии меню. `scripts/animatronic_routes.gd::AnimatronicRoutes`, `resources/animatronic_routes.tres` задают четыре маршрута; manager предоставляет прежние имена через getters. Runtime-состояние хранится в узлах, не в Resource.
+**VERIFIED:** `scripts/night_config.gd::NightConfig` — Resource конфигурации; `resources/night_1.tres` использует его значения по умолчанию. Значения включают номер/конец ночи, темп, энергию, уровни, тайминги всех AI и шокер. `resources/night_2.tres`–`night_6.tres` задают уровни из таблицы DOCX и выбираются одноразовым запросом SaveGame при продолжении кампании. `scripts/animatronic_routes.gd::AnimatronicRoutes`, `resources/animatronic_routes.tres` задают четыре маршрута; manager предоставляет прежние имена через getters. Runtime-состояние хранится в узлах, не в Resource.
 
 Существующие встроенные ресурсы сцен: SpriteFrames двери/планшета/пульта/шума/окончания; AnimationLibrary и метод-трек `night_end`; AtlasTexture кнопок; RectangleShape2D для областей ввода. Изображения и звуки находятся в `assets/Ремейк игры/`.
 
@@ -45,7 +45,7 @@
 
 ## Autoload и модель комнат
 
-**VERIFIED:** `project.godot::[autoload]` подключает только Global (`global.gd`) и AnimatronicMgnt (`animatronic_mgnt.gd`).
+**VERIFIED:** `project.godot::[autoload]` подключает Global (`global.gd`), AnimatronicMgnt (`animatronic_mgnt.gd`) и SaveGame (`save_game.gd`). SaveGame владеет общеприложенческим прогрессом и JSON в `user://progress.json`; подробности и источники будущих полей — в [SAVE_SYSTEM.md](SAVE_SYSTEM.md).
 
 Global содержит номер ночи и прежние сигналы энергии. AnimatronicMgnt содержит `Rooms`, четыре позиции/индекса/маршрута, стадии ОК и флаги Берри/Блэки. `reset_for_night()` сбрасывает индексы и позиции к началу маршрутов при каждом входе в Night. `reset_character()` применяется после защиты; `advance_character()` меняет индекс и позицию, выбирая вложенную ветку равновероятно. Сигналы `location_changed`, `posture_changed`, `old_creeper_state_changed` обновляют открытый вид камеры.
 
@@ -68,7 +68,7 @@ Rooms — enum ID, а не комнатные сцены или граф:
 
 ## Незавершённый и неиспользуемый код
 
-**VERIFIED:** `AnimatronicMgnt.next()` теперь совместимая обёртка `advance_character()`, а не прежний неисправный метод. Исторические Dog/Old Creeper скрипты не управляют действующими AI. `Camera.gd::_calculate_parameters()` не вызывается и содержит исторический расчёт с недействительным `Sprite2D.size`; обработчик изменения viewport оставлен пустым, текущий `_process()` читает размеры напрямую. Нет сохранения, автоматического открытия/перехода к N2, Phone Guy, случайных ночных звуков и мини-игр. Вентиляторы и шокер реализованы, но исходный баланс неполон.
+**VERIFIED:** `AnimatronicMgnt.next()` теперь совместимая обёртка `advance_character()`, а не прежний неисправный метод. Исторические Dog/Old Creeper скрипты не управляют действующими AI. `Camera.gd::_calculate_parameters()` не вызывается и содержит исторический расчёт с недействительным `Sprite2D.size`; обработчик изменения viewport оставлен пустым, текущий `_process()` читает размеры напрямую. Сохранения и открытие следующих профилей через Continue реализованы; нет автоматического перехода к следующей ночи, сюжетной цепочки мини-игр/концовок, Phone Guy и случайных ночных звуков. Вентиляторы и шокер реализованы, но исходный баланс неполон.
 
 Встроенный `GDScript_3gt48` в CameraSystem содержит пустой обработчик; он не является игровым контроллером. `Office/Area2D` не имеет реализованной роли. Старая анимация `NightEnd/night_end` содержит переход 5→6 (визуально проверены кадры 1 и 7), поэтому для победы в 07:00 не используется. **UNKNOWN:** назначение исторических заготовок и соответствие экспортов `dist/` текущему коду.
 
@@ -85,3 +85,5 @@ Rooms — enum ID, а не комнатные сцены или граф:
 **VERIFIED:** текущие исходники проверены в изолированной копии Godot 4.4.1: `tests/test_night.gd` — 175 проверок, 0 ошибок assertions; `tests/test_route_ai.gd` — 78 проверок, 0 ошибок assertions. Night загружался настоящей сценой с экспортированными ссылками. `git diff --check` чист. Read-only review подтвердил исправление счётчика. При завершении N1 тестового процесса остаются предупреждения ObjectDB/resources still in use; маршрутный набор завершился без этих предупреждений. Причина N1 warnings не установлена. Редакторский scan не сообщил ошибок GDScript, но сообщил Unrecognized UID для существующего `project.godot::config/icon` (`uid://dpuigcs8heeq1`); устаревший UID заменён существующим путём PNG в настройках проекта для Android-экспорта.
 
 После импорта: `Godot_v4.4.1-stable_win64_console.exe --headless --path <project> --script res://tests/test_night.gd`, затем `res://tests/test_route_ai.gd`. Тесты вызывают обработчики и проверяют состояние; это не физические клики и не прослушивание. **UNKNOWN:** ручное прохождение, звуковой микс, обычный рендеринг результатов и баланс следующих ночей.
+
+**VERIFIED (2026-10-07, газета):** актуальные project/scenes/scripts/resources/tests совпали с изолированной копией по SHA-256 (53 файла). Godot 4.4.1 editor scan — exit 0; `test_night.gd` — 182/182, `test_route_ai.gd` — 78/78, оба exit 0. Проверены N1, повтор, двойной Continue, отсутствие газеты в N2 и замороженный INTRO. При завершении остаются диагностические warnings ObjectDB/resources; причина не установлена. Визуально проверен переход газета → инструкция → офис; см. VISUAL_TESTING.md.

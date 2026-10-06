@@ -20,6 +20,11 @@ var _visible_state := ""
 var _pending_won := false
 var _warning_hint: Label
 var _jumpscare_death_path := ""
+var _newspaper: Control
+var _newspaper_dismissed := false
+var _save_notice_panel: PanelContainer
+var _save_notice_label: Label
+var _progress_save_error := ""
 
 const JUMPSCARE_FOLDERS = {"sann": "сан", "dog": "пес", "berry": "берри", "blacky": "блеки", "old_creeper": "ок"}
 const JUMPSCARE_LAST_FRAME = {"sann": 10, "dog": 13, "berry": 10, "blacky": 10, "old_creeper": 12}
@@ -42,6 +47,8 @@ func _ready() -> void:
 		night.time_changed.connect(_on_time_changed)
 	if night.has_signal("outcome_reached"):
 		night.outcome_reached.connect(_on_outcome_reached)
+	if night.has_signal("progress_save_failed"):
+		night.progress_save_failed.connect(_on_progress_save_failed)
 	var ai := night.get("sann_ai") as Node
 	if ai != null:
 		if ai.has_signal("warning_started"):
@@ -63,6 +70,7 @@ func _ready() -> void:
 	_blackout.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_blackout.visible = false
 	add_child(_blackout)
+	_build_newspaper()
 	_death_timer = Timer.new()
 	_death_timer.one_shot = true
 	_death_timer.timeout.connect(_show_death_result)
@@ -72,7 +80,93 @@ func _ready() -> void:
 	_jumpscare_timer.wait_time = 0.133
 	_jumpscare_timer.timeout.connect(_advance_jumpscare)
 	add_child(_jumpscare_timer)
+	_build_save_notice()
 	_on_phase_changed(int(night.get("phase")))
+
+func _build_newspaper() -> void:
+	_newspaper = Control.new()
+	_newspaper.name = "Newspaper"
+	_newspaper.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_newspaper.mouse_filter = Control.MOUSE_FILTER_STOP
+	_newspaper.visible = false
+	add_child(_newspaper)
+	var background := ColorRect.new()
+	background.color = Color.BLACK
+	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	background.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_newspaper.add_child(background)
+	var paper := TextureButton.new()
+	paper.name = "Paper"
+	paper.texture_normal = preload("res://assets/Ремейк игры/камера/газета.jpg")
+	paper.ignore_texture_size = true
+	paper.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
+	paper.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	paper.pressed.connect(_dismiss_newspaper)
+	_newspaper.add_child(paper)
+	var continue_button := Button.new()
+	continue_button.name = "Continue"
+	continue_button.text = "Продолжить"
+	continue_button.anchor_left = 0.5
+	continue_button.anchor_right = 0.5
+	continue_button.anchor_top = 1.0
+	continue_button.anchor_bottom = 1.0
+	continue_button.offset_left = -160
+	continue_button.offset_right = 160
+	continue_button.offset_top = -88
+	continue_button.offset_bottom = -26
+	continue_button.add_theme_font_size_override("font_size", 26)
+	continue_button.pressed.connect(_dismiss_newspaper)
+	_newspaper.add_child(continue_button)
+
+func _dismiss_newspaper() -> void:
+	if _visible_state != "newspaper" or night == null or int(night.get("phase")) != 0:
+		return
+	_newspaper_dismissed = true
+	_newspaper.visible = false
+	_on_phase_changed(0)
+
+func _build_save_notice() -> void:
+	_save_notice_panel = PanelContainer.new()
+	_save_notice_panel.name = "ProgressSaveNotice"
+	_save_notice_panel.anchor_left = 0.5
+	_save_notice_panel.anchor_right = 0.5
+	_save_notice_panel.offset_left = -520
+	_save_notice_panel.offset_top = 16
+	_save_notice_panel.offset_right = 520
+	_save_notice_panel.offset_bottom = 112
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.16, 0.04, 0.025, 0.96)
+	style.border_color = Color(1.0, 0.45, 0.28, 1.0)
+	style.set_border_width_all(2)
+	style.set_corner_radius_all(6)
+	style.content_margin_left = 20
+	style.content_margin_right = 20
+	style.content_margin_top = 12
+	style.content_margin_bottom = 12
+	_save_notice_panel.add_theme_stylebox_override("panel", style)
+	_save_notice_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_save_notice_panel.visible = false
+	add_child(_save_notice_panel)
+	_save_notice_label = Label.new()
+	_save_notice_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_save_notice_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_save_notice_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_save_notice_label.add_theme_font_size_override("font_size", 20)
+	_save_notice_label.add_theme_color_override("font_color", Color(1.0, 0.84, 0.76))
+	_save_notice_label.text = "Не удалось записать прогресс кампании."
+	_save_notice_panel.add_child(_save_notice_label)
+
+func _on_progress_save_failed(message: String) -> void:
+	_progress_save_error = message.strip_edges()
+	if _visible_state in ["won", "lost"]:
+		_show_progress_save_notice()
+
+func _show_progress_save_notice() -> void:
+	if _save_notice_panel == null:
+		return
+	var detail := _progress_save_error
+	_save_notice_label.text = "Прогресс не сохранён. %s" % detail if not detail.is_empty() else "Прогресс не сохранён. Проверьте свободное место и права записи."
+	_save_notice_panel.visible = true
 
 func _build_overlay() -> void:
 	_root = Control.new()
@@ -147,6 +241,13 @@ func _on_phase_changed(phase: int) -> void:
 		0:
 			var cfg = night.get("config")
 			var night_number := int(cfg.get("night_number")) if cfg != null else 1
+			if night_number == 1 and not _newspaper_dismissed:
+				_hide_card()
+				_visible_state = "newspaper"
+				_newspaper.visible = true
+				_newspaper.get_node("Continue").grab_focus()
+				return
+			_newspaper.visible = false
 			var end_hour := int(cfg.get("end_hour")) if cfg != null else 7
 			var instructions := "Смена длится до %02d:00.\nПланшет — кнопка внизу по центру. Пульт вентиляторов — слева внизу." % end_hour
 			if cfg != null and cfg.sann_level > 0:
@@ -262,6 +363,8 @@ func _show_death_result() -> void:
 		var end_hour := int(cfg.get("end_hour")) if cfg != null else 7
 		var current_minutes := int(night.get("minutes"))
 		_show_card("won", "%02d:%02d — НОЧЬ ПРОЙДЕНА" % [end_hour, current_minutes], "Смена завершена.", "В меню", "Сыграть ещё раз")
+	if not _progress_save_error.is_empty():
+		_show_progress_save_notice()
 
 func _show_card(state: String, title: String, body: String, primary: String, secondary: String) -> void:
 	_visible_state = state
@@ -278,6 +381,8 @@ func _show_card(state: String, title: String, body: String, primary: String, sec
 func _hide_card() -> void:
 	_visible_state = ""
 	_root.visible = false
+	if _newspaper != null:
+		_newspaper.visible = false
 
 func _on_primary_pressed() -> void:
 	match _visible_state:
@@ -288,11 +393,27 @@ func _on_primary_pressed() -> void:
 			if _visible_state == "won":
 				get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
 			else:
-				get_tree().reload_current_scene()
+				_replay_night()
 
 func _on_secondary_pressed() -> void:
 	if _visible_state in ["intro", "lost", "won"]:
 		if _visible_state == "won":
-			get_tree().reload_current_scene()
+			_replay_night()
 		else:
 			get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+
+func _replay_night() -> void:
+	var campaign_run: bool = night != null and night.is_campaign_run()
+	if campaign_run:
+		var cfg = night.get("config")
+		var night_number := int(cfg.get("night_number")) if cfg != null else 1
+		if not SaveGame.prepare_night(night_number):
+			_progress_save_error = str(SaveGame.last_error)
+			_show_progress_save_notice()
+			return
+	var error := get_tree().reload_current_scene()
+	if error != OK:
+		if campaign_run:
+			SaveGame.consume_night_request()
+		_progress_save_error = "Не удалось перезапустить ночь. Код ошибки: %d" % error
+		_show_progress_save_notice()
