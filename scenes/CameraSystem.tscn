@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://ncki8ekh6spu"]
+[gd_scene load_steps=48 format=3 uid="uid://ncki8ekh6spu"]
 
 [ext_resource type="Script" uid="uid://bc5tlolv82qcb" path="res://scripts/camera_system.gd" id="1_wvejg"]
 [ext_resource type="Texture2D" uid="uid://dk6gxprnoeb5k" path="res://assets/Ремейк игры/камера/планшет/пульт/0.png" id="2_k8582"]
@@ -40,6 +40,8 @@
 [ext_resource type="Texture2D" uid="uid://spyxpumwtrsq" path="res://assets/Ремейк игры/камера/кнопки/кнопки переключения камер/кам.7.png" id="39_8bskn"]
 [ext_resource type="Texture2D" uid="uid://bttjnlyao3l52" path="res://assets/Ремейк игры/камера/кнопки/кнопки переключения камер/кам.7. вкл.png" id="40_wyeh3"]
 [ext_resource type="Texture2D" uid="uid://cn6q5df0tw5a2" path="res://assets/Ремейк игры/камера/планшет/расход/1.png" id="43_xc5wi"]
+[ext_resource type="Texture2D" path="res://assets/Ремейк игры/камера/кнопки/кнопка шокер ОК выкл.png" id="44_shock_off"]
+[ext_resource type="Texture2D" path="res://assets/Ремейк игры/камера/кнопки/кнопка шокер ОК вкл.png" id="45_shock_on"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g31vs"]
 animations = [{
@@ -135,6 +137,36 @@ script = ExtResource("1_wvejg")
 visible = false
 sprite_frames = SubResource("SpriteFrames_g31vs")
 centered = false
+
+[node name="FanLeftLit" type="Polygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(278, 589, 363, 590, 380, 606, 354, 635, 273, 627)
+color = Color(0.1, 0.85, 0.8, 0.75)
+
+[node name="FanRightLit" type="Polygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(377, 603, 453, 610, 472, 626, 449, 650, 364, 640)
+color = Color(0.1, 0.85, 0.8, 0.75)
+
+[node name="FanLeftButton" type="TextureButton" parent="."]
+visible = false
+offset_left = 270.0
+offset_top = 575.0
+offset_right = 390.0
+offset_bottom = 650.0
+tooltip_text = "Включить или выключить левый вентилятор"
+mouse_default_cursor_shape = 2
+focus_mode = 0
+
+[node name="FanRightButton" type="TextureButton" parent="."]
+visible = false
+offset_left = 390.0
+offset_top = 575.0
+offset_right = 510.0
+offset_bottom = 650.0
+tooltip_text = "Включить или выключить правый вентилятор"
+mouse_default_cursor_shape = 2
+focus_mode = 0
 
 [node name="open_button" type="Sprite2D" parent="."]
 position = Vector2(960, 1039)
@@ -268,12 +300,51 @@ text = "00:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="consumption_count" type="Label" parent="camera_pad"]
+visible = false
+offset_left = 1555.0
+offset_top = 134.0
+offset_right = 1600.0
+offset_bottom = 190.0
+theme_override_colors/font_color = Color(1, 0.35, 0.15, 1)
+theme_override_font_sizes/font_size = 36
+text = "4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ShockButton" type="TextureButton" parent="."]
+visible = false
+offset_left = 1535.0
+offset_top = 600.0
+offset_right = 1574.0
+offset_bottom = 626.0
+tooltip_text = "Разрядить ОК (20 энергии, перезарядка 8 секунд)"
+mouse_default_cursor_shape = 2
+focus_mode = 0
+texture_normal = ExtResource("45_shock_on")
+texture_disabled = ExtResource("44_shock_off")
+
+[node name="ShockCooldown" type="Label" parent="."]
+visible = false
+offset_left = 1575.0
+offset_top = 594.0
+offset_right = 1615.0
+offset_bottom = 630.0
+theme_override_colors/font_color = Color(1, 0.9, 0.35, 1)
+theme_override_font_sizes/font_size = 20
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="energy_consumption" type="Sprite2D" parent="camera_pad"]
 visible = false
 texture = ExtResource("43_xc5wi")
 centered = false
 
 [connection signal="animation_finished" from="remote_controller" to="." method="_on_remote_controller_animation_finished"]
+[connection signal="pressed" from="FanLeftButton" to="." method="_on_fan_left_pressed"]
+[connection signal="pressed" from="FanRightButton" to="." method="_on_fan_right_pressed"]
+[connection signal="pressed" from="ShockButton" to="." method="_on_shock_pressed"]
 [connection signal="mouse_entered" from="open_button/Area2D" to="." method="_on_open_button_mouse_entered"]
 [connection signal="mouse_entered" from="remote_controller_button/Area2D" to="." method="_on_remote_controller_button_mouse_entered"]
 [connection signal="animation_finished" from="camera_pad" to="." method="_on_camera_pad_animation_finished"]

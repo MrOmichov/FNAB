@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="NightConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/night_config.gd" id="1_config"]
+
+[resource]
+script = ExtResource("1_config")
+night_number = 4
+berry_level = 11
+blacky_level = 9
+dog_level = 5
+sann_level = 10
+old_creeper_level = 9

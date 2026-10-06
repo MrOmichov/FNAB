@@ -61,4 +61,5 @@ Output:
 # Implementation steps
 # Risks
 # Definition of done
+At task start, invoke and follow the `$caveman` skill. Keep responses concise without dropping technical facts.
 """

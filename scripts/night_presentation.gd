@@ -19,6 +19,17 @@ var _jumpscare_index := 0
 var _visible_state := ""
 var _pending_won := false
 var _warning_hint: Label
+var _jumpscare_death_path := ""
+
+const JUMPSCARE_FOLDERS = {"sann": "сан", "dog": "пес", "berry": "берри", "blacky": "блеки", "old_creeper": "ок"}
+const JUMPSCARE_LAST_FRAME = {"sann": 10, "dog": 13, "berry": 10, "blacky": 10, "old_creeper": 12}
+const DEATH_IMAGES = {
+	"sann": "смерть от Санн.png",
+	"dog": "смерть от Пса.png",
+	"berry": "Смерть от Берри.png",
+	"blacky": "смерть от Блеки.png",
+	"old_creeper": "Смерть от ОК.png",
+}
 
 func _ready() -> void:
 	_build_overlay()
@@ -76,9 +87,9 @@ func _build_overlay() -> void:
 	_card.anchor_right = 0.5
 	_card.anchor_bottom = 0.5
 	_card.offset_left = -410
-	_card.offset_top = -220
+	_card.offset_top = -330
 	_card.offset_right = 410
-	_card.offset_bottom = 220
+	_card.offset_bottom = 330
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color(0.025, 0.03, 0.045, 0.96)
 	style.border_color = Color(0.72, 0.16, 0.08, 1.0)
@@ -137,7 +148,16 @@ func _on_phase_changed(phase: int) -> void:
 			var cfg = night.get("config")
 			var night_number := int(cfg.get("night_number")) if cfg != null else 1
 			var end_hour := int(cfg.get("end_hour")) if cfg != null else 7
-			_show_card("intro", "НОЧЬ %d" % night_number, "Смена длится до %02d:00.\nКогда Санн начнёт раскачиваться, найдите его слева: наведите курсор на левый край экрана и нажмите на нос. Перед этим закройте планшет.\n\nПланшет открывается наведением на кнопку внизу по центру." % end_hour, "Начать смену", "В меню")
+			var instructions := "Смена длится до %02d:00.\nПланшет — кнопка внизу по центру. Пульт вентиляторов — слева внизу." % end_hour
+			if cfg != null and cfg.sann_level > 0:
+				instructions += "\nСанн раскачивается: закройте планшет, повернитесь влево и нажмите на нос."
+			if cfg != null and (cfg.dog_level > 0 or cfg.berry_level > 0):
+				instructions += "\nПёс и Берри у двери: закройте дверь и дождитесь ухода."
+			if cfg != null and cfg.blacky_level > 0:
+				instructions += "\nБлэки в вентиляции: включите вентилятор с той стороны, откуда он ползёт."
+			if cfg != null and cfg.old_creeper_level > 0:
+				instructions += "\nОК: следите за камерой 2 и используйте шокер. Он расходует энергию и имеет откат."
+			_show_card("intro", "НОЧЬ %d" % night_number, instructions, "Начать смену", "В меню")
 		1:
 			_hide_card()
 		2:
@@ -183,9 +203,9 @@ func _on_outcome_reached(won: bool, reason: String) -> void:
 				end_art.frame = end_art.sprite_frames.get_frame_count("default") - 1
 		_death_timer.start(4.0)
 		return
-	if reason == "sann":
+	if JUMPSCARE_FOLDERS.has(reason):
 		_blackout.visible = false
-		_show_sann_jumpscare()
+		_show_character_jumpscare(reason)
 	else:
 		_blackout.visible = false
 		_fullscreen_art.texture = load("res://assets/Ремейк игры/аниматроники и смерти/после смерти/ру/смерть от  конца энергии.png")
@@ -194,9 +214,21 @@ func _on_outcome_reached(won: bool, reason: String) -> void:
 		_death_timer.start(2.0)
 
 func _show_sann_jumpscare() -> void:
+	_show_character_jumpscare("sann")
+
+func _show_character_jumpscare(reason: String) -> void:
 	_jumpscare_frames.clear()
-	for i in range(1, 11):
-		_jumpscare_frames.append(load("res://assets/Ремейк игры/аниматроники и смерти/скримеры/сан/%d.png" % i) as Texture2D)
+	_jumpscare_death_path = "res://assets/Ремейк игры/аниматроники и смерти/после смерти/ру/" + DEATH_IMAGES[reason]
+	for i in range(1, int(JUMPSCARE_LAST_FRAME[reason]) + 1):
+		var frame_path := "res://assets/Ремейк игры/аниматроники и смерти/скримеры/%s/%d.png" % [JUMPSCARE_FOLDERS[reason], i]
+		# Original OC artwork has no frame 3; do not load a nonexistent asset.
+		if ResourceLoader.exists(frame_path):
+			_jumpscare_frames.append(load(frame_path) as Texture2D)
+	if _jumpscare_frames.is_empty():
+		_fullscreen_art.texture = load(_jumpscare_death_path)
+		_fullscreen_art.visible = true
+		_death_timer.start(2.0)
+		return
 	_jumpscare_index = 0
 	_fullscreen_art.texture = _jumpscare_frames[0]
 	_fullscreen_art.modulate = Color.WHITE
@@ -209,7 +241,7 @@ func _advance_jumpscare() -> void:
 		_fullscreen_art.texture = _jumpscare_frames[_jumpscare_index]
 		_jumpscare_timer.start()
 		return
-	_fullscreen_art.texture = load("res://assets/Ремейк игры/аниматроники и смерти/после смерти/ру/смерть от Санн.png")
+	_fullscreen_art.texture = load(_jumpscare_death_path)
 	_death_timer.start(2.0)
 
 func _exit_tree() -> void:
@@ -229,7 +261,7 @@ func _show_death_result() -> void:
 		var cfg = night.get("config")
 		var end_hour := int(cfg.get("end_hour")) if cfg != null else 7
 		var current_minutes := int(night.get("minutes"))
-		_show_card("won", "%02d:%02d — НОЧЬ ПРОЙДЕНА" % [end_hour, current_minutes], "Первая смена завершена.", "В меню", "Сыграть ещё раз")
+		_show_card("won", "%02d:%02d — НОЧЬ ПРОЙДЕНА" % [end_hour, current_minutes], "Смена завершена.", "В меню", "Сыграть ещё раз")
 
 func _show_card(state: String, title: String, body: String, primary: String, secondary: String) -> void:
 	_visible_state = state

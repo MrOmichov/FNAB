@@ -6,6 +6,9 @@ signal time_changed(hours: int, minutes: int)
 signal power_changed(power: float)
 signal consumption_changed(consumption: int)
 signal door_changed(closed: bool)
+signal fan_changed(side: int, enabled: bool)
+signal shock_used()
+signal shock_cooldown_changed(seconds: float)
 signal night_started()
 signal sann_nose_clicked()
 signal outcome_reached(won: bool, reason: String)
@@ -14,6 +17,7 @@ const MAX_POWER = 1000
 const BASE_ENERGY_CONSUMPTION = 1
 @export var config: NightConfig
 @export var sann_ai: Node
+@export var route_ai: Node
 @export var time_speed_modifier: float = 1.0
 var phase: Phase = Phase.INTRO
 var hours: int = 0
@@ -23,6 +27,9 @@ var is_door_closed: bool = false
 var is_left_fan_enabled: bool = false
 var is_right_fan_enabled: bool = false
 var monitor_open: bool = false
+var surveillance_open: bool = false
+var current_camera_index: int = 4
+var shock_cooldown_remaining: float = 0.0
 var _clock_elapsed: float = 0.0
 var _power_elapsed: float = 0.0
 var _power_out_elapsed: float = 0.0
@@ -39,11 +46,17 @@ func _ready() -> void:
 	if sann_ai != null:
 		sann_ai.reset(config)
 		sann_ai.attack_requested.connect(_on_sann_attack_requested)
+	if route_ai != null:
+		route_ai.reset(config, self)
+		route_ai.attack_requested.connect(_on_route_attack_requested)
 	phase_changed.emit(phase)
 	time_changed.emit(hours, minutes)
 	_emit_power()
 	_emit_consumption()
 	door_changed.emit(false)
+	fan_changed.emit(0, false)
+	fan_changed.emit(1, false)
+	shock_cooldown_changed.emit(0.0)
 
 func _process(delta: float) -> void:
 	advance(delta)
@@ -89,6 +102,11 @@ func advance(delta: float) -> void:
 				break
 		if phase == Phase.RUNNING and sann_ai != null:
 			sann_ai.advance(step)
+		if phase == Phase.RUNNING and route_ai != null:
+			route_ai.advance(step)
+		if phase == Phase.RUNNING and shock_cooldown_remaining > 0.0:
+			shock_cooldown_remaining = maxf(0.0, shock_cooldown_remaining - step)
+			shock_cooldown_changed.emit(shock_cooldown_remaining)
 
 func is_player_input_allowed() -> bool:
 	return phase == Phase.RUNNING
@@ -103,6 +121,44 @@ func request_door_toggle() -> bool:
 
 func set_monitor_open(open: bool) -> void:
 	monitor_open = open and is_player_input_allowed()
+
+func set_surveillance_open(open: bool) -> void:
+	surveillance_open = open and is_player_input_allowed()
+
+func select_surveillance_camera(index: int) -> bool:
+	if not is_player_input_allowed() or index < 1 or index > 7:
+		return false
+	current_camera_index = index
+	return true
+
+func request_fan_toggle(side: int) -> bool:
+	if not is_player_input_allowed() or side not in [0, 1]:
+		return false
+	if side == 0:
+		is_left_fan_enabled = not is_left_fan_enabled
+		fan_changed.emit(side, is_left_fan_enabled)
+	else:
+		is_right_fan_enabled = not is_right_fan_enabled
+		fan_changed.emit(side, is_right_fan_enabled)
+	_emit_consumption()
+	return true
+
+func request_shock() -> bool:
+	if not is_player_input_allowed() or not surveillance_open or current_camera_index != 2:
+		return false
+	var cost: float = maxf(config.shock_cost, 0.0)
+	if shock_cooldown_remaining > 0.0 or power_left < cost or route_ai == null:
+		return false
+	if not route_ai.shock_old_creeper():
+		return false
+	power_left = maxf(0.0, power_left - cost)
+	shock_cooldown_remaining = maxf(config.shock_cooldown_seconds, 0.0)
+	_emit_power()
+	shock_cooldown_changed.emit(shock_cooldown_remaining)
+	shock_used.emit()
+	if power_left <= 0.0:
+		_enter_power_out()
+	return true
 
 func request_sann_nose_click() -> bool:
 	if not is_player_input_allowed() or monitor_open or sann_ai == null:
@@ -127,12 +183,17 @@ func get_total_energy_consumption() -> int:
 func _enter_power_out() -> void:
 	phase = Phase.POWER_OUT
 	monitor_open = false
+	surveillance_open = false
 	is_door_closed = false
 	is_left_fan_enabled = false
 	is_right_fan_enabled = false
 	if sann_ai != null:
 		sann_ai.stop()
+	if route_ai != null:
+		route_ai.stop()
 	door_changed.emit(false)
+	fan_changed.emit(0, false)
+	fan_changed.emit(1, false)
 	_emit_consumption()
 	phase_changed.emit(phase)
 
@@ -141,8 +202,15 @@ func _finish(won: bool, reason: String) -> void:
 		return
 	phase = Phase.WON if won else Phase.LOST
 	monitor_open = false
+	surveillance_open = false
+	is_left_fan_enabled = false
+	is_right_fan_enabled = false
 	if sann_ai != null:
 		sann_ai.stop()
+	if route_ai != null:
+		route_ai.stop()
+	fan_changed.emit(0, false)
+	fan_changed.emit(1, false)
 	_emit_consumption()
 	phase_changed.emit(phase)
 	outcome_reached.emit(won, reason)
@@ -150,6 +218,13 @@ func _finish(won: bool, reason: String) -> void:
 func _on_sann_attack_requested() -> void:
 	if phase == Phase.RUNNING:
 		_finish(false, "sann")
+
+func _on_route_attack_requested(character: int) -> void:
+	if phase != Phase.RUNNING:
+		return
+	var reasons := ["old_creeper", "dog", "berry", "blacky"]
+	if character >= 0 and character < reasons.size():
+		_finish(false, reasons[character])
 
 func _emit_power() -> void:
 	power_changed.emit(power_left)

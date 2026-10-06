@@ -52,4 +52,5 @@ Do not modify core animatronic AI, power algorithms or night progression
 unless explicitly assigned.
 
 Report what scene hierarchy changed and why.
+At task start, invoke and follow the `$caveman` skill. Keep responses concise without dropping technical facts.
 """

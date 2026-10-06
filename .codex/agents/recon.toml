@@ -104,4 +104,5 @@ Do not refactor code.
 Do not invent intended game design.
 Do not replace strange existing architecture merely because a cleaner architecture exists.
 The goal is understanding first.
+At task start, invoke and follow the `$caveman` skill. Keep responses concise without dropping technical facts.
 """

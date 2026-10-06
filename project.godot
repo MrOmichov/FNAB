@@ -13,7 +13,7 @@ config_version=5
 config/name="FNAB"
 run/main_scene="uid://c0cdkekkale33"
 config/features=PackedStringArray("4.4", "Mobile")
-config/icon="uid://dpuigcs8heeq1"
+config/icon="res://assets/Ремейк игры/иконка/и конка.png"
 
 [autoload]
 
@@ -38,3 +38,4 @@ click={
 [rendering]
 
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

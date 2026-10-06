@@ -56,4 +56,5 @@ Merge assessment must be one of:
 
 Never approve a change merely because it looks clean.
 Trace the behavior.
+At task start, invoke and follow the `$caveman` skill. Keep responses concise without dropping technical facts.
 """

@@ -12,6 +12,21 @@ extends Sprite2D
 @onready var dog_tex = preload("res://assets/Ремейк игры/камера/комнаты/главный зал/Роботы/Пёс.png")
 @onready var blacky_tex = preload("res://assets/Ремейк игры/камера/комнаты/главный зал/Роботы/Блеки.png")
 
+# Keep rare background variants stable when animatronic state refreshes a live feed.
+var _background_cache: Dictionary = {}
+
+func _background(key: String, ordinary_path: String, easter_egg_path: String) -> Texture2D:
+	if not _background_cache.has(key):
+		var selected_path := easter_egg_path if randi() % 1001 < 10 else ordinary_path
+		_background_cache[key] = load(selected_path)
+	return _background_cache[key] as Texture2D
+
+func clear_background_for_camera(camera_index: int) -> void:
+	if camera_index == 1:
+		_background_cache.erase("workshop")
+	elif camera_index == 4:
+		_background_cache.erase("main_hall")
+
 func _make_all_null():
 	layer1.texture = null
 	layer2.texture = null
@@ -47,11 +62,8 @@ func set_right_vent():
 # комната пса
 func set_workshop():
 	_make_all_null()
-	if randi() % 1001 < 10:
-		# это пасхалка TODO выдать ачивку за это
-		texture = load("res://assets/Ремейк игры/камера/комнаты/комната с псом/комната с пасхалкой.png")
-	else:
-		texture = load("res://assets/Ремейк игры/камера/комнаты/комната с псом/комната.png")
+	# This rare artwork choice is made once per camera feed, not on every state refresh.
+	texture = _background("workshop", "res://assets/Ремейк игры/камера/комнаты/комната с псом/комната.png", "res://assets/Ремейк игры/камера/комнаты/комната с псом/комната с пасхалкой.png")
 	if AnimatronicMgnt.get_berry_pos() == AnimatronicMgnt.Rooms.WORKSHOP:
 		layer1.texture = load("res://assets/Ремейк игры/камера/комнаты/комната с псом/Берри.png")
 	if AnimatronicMgnt.get_dog_pos() == AnimatronicMgnt.Rooms.WORKSHOP:
@@ -96,11 +108,7 @@ func set_stage():
 # главный зал
 func set_main_hall():
 	_make_all_null()
-	if randi() % 1001 < 10:
-		# это пасхалка TODO выдать ачивку за это
-		texture = load("res://assets/Ремейк игры/камера/комнаты/главный зал/Главный зал пасхалка.png")
-	else:
-		texture = load("res://assets/Ремейк игры/камера/комнаты/главный зал/Главный зал.png")
+	texture = _background("main_hall", "res://assets/Ремейк игры/камера/комнаты/главный зал/Главный зал.png", "res://assets/Ремейк игры/камера/комнаты/главный зал/Главный зал пасхалка.png")
 	layer1.texture = tables_back
 	layer2.texture = tables_front
 
